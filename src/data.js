@@ -14,12 +14,29 @@ export const profile = {
 }
 
 export const featured = {
-  title: 'Lost Light',
-  tagline: 'A 2D adventure/survival game where your light is your lifeline, and every glow has a cost.',
-  meta: 'Unity · C# · Android / PC',
+  id: 'fogbound',
+  title: 'Fogbound',
+  tagline: 'A storm-swept horror survival game on a lost archipelago. The fog will not let you leave.',
+  meta: 'Unity 6 · C# · Windows / macOS / iOS',
 }
 
 export const projects = [
+  {
+    id: 'fogbound',
+    title: 'Fogbound',
+    subtitle: '3D Horror / Survival Adventure',
+    kind: 'Unity Game Project',
+    date: 'Windows · macOS · iOS',
+    stack: ['Unity 6', 'C#', 'Rigidbody Physics', 'Mobile Touch Controls', 'JSON Save System'],
+    points: [
+      "Built a 3D horror-survival game set on a fog-bound archipelago, where the player follows a lighthouse keeper's scattered journal pages from island to island to light the signal fire on Beacon Rock and call a rescue ship.",
+      'Programmed an ordered quest system with a compass HUD, readable clue notes, locked doors and keys, and savepoint respawns.',
+      'Created a dynamic storm: rising tides that flood the beaches, rain muffled indoors, lightning with distance-delayed thunder, and strikes that hunt players caught in the open.',
+      'Designed shadow demons that rise from the sea and close in on every lightning flash, countered by a holy cross that burns them away in its light, across three difficulty levels.',
+      'Implemented rowboat buoyancy and rowing, swimming, stamina, plank collecting and boat upgrades, plus a fog wall that pushes players back toward the islands.',
+      'Added on-screen touch controls, JSON save slots, a settings menu, and an intro cutscene, and shipped builds for Windows, macOS, and iOS.',
+    ],
+  },
   {
     id: 'ilabcict',
     title: 'iLabCICT',
@@ -67,9 +84,15 @@ export const projects = [
 ]
 
 export const skills = [
+  {
+    group: 'Front-End',
+    items: ['ReactJS (Vite)', 'TailwindCSS', 'React Native', 'Responsive UI Development', 'REST API Integration'],
+  },
+  {
+    group: 'Creative & Design',
+    items: ['Adobe Photoshop', 'Adobe Illustrator', 'Adobe Premiere Pro', 'Adobe After Effects', 'Figma', 'UI/UX Design'],
+  },
   { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'Python', 'SQL', 'HTML', 'CSS', 'Apex (Salesforce)'] },
-  { group: 'Front-End', items: ['ReactJS (Vite)', 'TailwindCSS', 'React Native', 'Responsive UI Development'] },
-  { group: 'Back-End', items: ['REST APIs'] },
   { group: 'Databases', items: ['PostgreSQL', 'Relational Database Design'] },
   {
     group: 'Game Development',

@@ -31,8 +31,9 @@ function Hero() {
       </Reveal>
       <Reveal className="hero__lede" delay={120}>
         <p>
-          I'm {profile.shortName}, an IT student at Bulacan State University building 3D and 2D games in Unity and
-          C#, full-stack web and mobile apps in React, and automation on Salesforce.
+          I'm {profile.shortName}, a front-end developer and IT student at Bulacan State University. I build web and
+          mobile interfaces in React, games in Unity and C#, and visuals in Photoshop, Illustrator, Premiere Pro, and
+          After Effects.
         </p>
       </Reveal>
     </section>
@@ -42,7 +43,7 @@ function Hero() {
 function FeaturedCard() {
   return (
     <Reveal className="container">
-      <a href="#lost-light" className="feature-card">
+      <a href={`#${featured.id}`} className="feature-card">
         <svg className="arch" viewBox="0 0 1000 340" role="img" aria-label={featured.title}>
           <defs>
             <path id="arch-text" d="M 150 260 Q 500 70 850 260" />
@@ -69,7 +70,7 @@ function Projects() {
   return (
     <section className="section container" id="work">
       <SectionHead eyebrow="Selected work" title="Projects">
-        A capstone platform, a complete game, and a mobile UI system, each built with a team and shipped end to end.
+        Two games, a capstone platform, and a mobile UI system, each taken from idea to working build.
       </SectionHead>
 
       <div className="projects">
@@ -213,7 +214,8 @@ function Contact() {
         <Reveal className="footer__cta">
           <h2 className="footer__title">Let's build something together.</h2>
           <p className="serif footer__lede">
-            Open to internships and entry-level roles in game, web, mobile, and Salesforce development.
+            Open to internships and entry-level roles in front-end, game, and Salesforce development, and in
+            design and motion work.
           </p>
           <div className="footer__actions">
             <a className="btn btn--light" href={`mailto:${profile.email}`}>
