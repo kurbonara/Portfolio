@@ -71,21 +71,38 @@ export default function ThemeToggle() {
       return
     }
 
-    // Circular reveal growing out of the button, where supported.
+    // Feathered circle growing out of the button, where supported.
     if (document.startViewTransition) {
+      const root = document.documentElement
       const rect = e.currentTarget.getBoundingClientRect()
       const x = rect.left + rect.width / 2
       const y = rect.top + rect.height / 2
       const r = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
+      // The mask is solid to 70% of its radius and fades out after, so it must end
+      // big enough that the solid part alone covers the far corner.
+      const d = (r / 0.7) * 2
+
+      // The frosted nav doesn't snapshot cleanly, so keep it solid during the switch.
+      root.classList.add('theme-switching')
       const transition = document.startViewTransition(update)
       transition.ready
         .then(() => {
-          document.documentElement.animate(
-            { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
-            { duration: 650, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', pseudoElement: '::view-transition-new(root)' }
+          root.animate(
+            {
+              maskSize: ['0px 0px', `${d}px ${d}px`],
+              maskPosition: [`${x}px ${y}px`, `${x - d / 2}px ${y - d / 2}px`],
+            },
+            {
+              duration: 1000,
+              easing: 'cubic-bezier(0.45, 0, 0.2, 1)',
+              // Hold the final frame; otherwise the mask snaps back to 0 for a frame before the transition ends.
+              fill: 'forwards',
+              pseudoElement: '::view-transition-new(root)',
+            }
           )
         })
         .catch(() => {})
+      transition.finished.finally(() => root.classList.remove('theme-switching'))
       return
     }
 
@@ -93,7 +110,7 @@ export default function ThemeToggle() {
     const root = document.documentElement
     root.classList.add('theme-fade')
     update()
-    window.setTimeout(() => root.classList.remove('theme-fade'), 550)
+    window.setTimeout(() => root.classList.remove('theme-fade'), 650)
   }
 
   const isDark = theme === 'dark'
