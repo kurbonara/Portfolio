@@ -56,7 +56,7 @@ export default function Nav() {
     if (gap) root.style.paddingRight = `${gap}px`
     root.classList.add('menu-open')
     const onKey = (e) => e.key === 'Escape' && setMenuOpen(false)
-    const mq = window.matchMedia('(min-width: 821px)')
+    const mq = window.matchMedia('(min-width: 901px)')
     const onWide = (e) => e.matches && setMenuOpen(false)
     window.addEventListener('keydown', onKey)
     mq.addEventListener('change', onWide)
