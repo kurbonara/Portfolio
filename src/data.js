@@ -35,6 +35,13 @@ export const featured = {
 export const projects = [
   {
     id: 'fogbound',
+    summary:
+      "A 3D horror-survival game where you row between fog-bound islands, following a lost keeper's journal to light a signal fire and escape.",
+    problem:
+      'Make a small archipelago feel dangerous and alive. Players need constant pressure from storms, tides, and monsters, without ever losing track of where to go next.',
+    solution:
+      'An ordered quest chain with a compass HUD and readable journal pages keeps direction clear, while a storm system, rising tides, and shadow demons supply the pressure. A holy cross and boat upgrades give the player ways to fight back.',
+    role: 'Gameplay programming in Unity 6 and C#: quest, storm, enemy, boat, and survival systems, plus UI, saving, and platform builds.',
     title: 'Fogbound',
     subtitle: '3D Horror / Survival Adventure',
     kind: 'Unity Game Project',
@@ -51,10 +58,18 @@ export const projects = [
   },
   {
     id: 'ilabcict',
+    summary:
+      "A web and mobile platform that replaces chats, logbooks, and verbal requests for BulSU CICT lab maintenance with one ticketing and equipment-tracking system.",
+    problem:
+      "Lab issues at BulSU's CICT were reported informally through chats, logbooks, and verbal requests, so requests were hard to track and repair history was scattered.",
+    solution:
+      'Centralized ticketing with tracking numbers, QR codes on equipment, a computer inventory with repair history, automated reports, and role-based access for faculty, technicians, and administrators.',
+    role: 'Developer on the capstone team, working in Agile Scrum with daily standups and Figma prototypes. The web app is deployed on Vercel.',
     title: 'iLabCICT',
     subtitle: 'Laboratory Maintenance & Technical Support Management System',
     kind: 'BSIT Capstone Project',
     platform: 'Web · Mobile',
+    date: 'March 2026',
     stack: ['ReactJS (Vite)', 'TypeScript', 'TailwindCSS', 'React Native', 'Django', 'PostgreSQL', 'Figma'],
     points: [
       "Developed a web and mobile platform for BulSU's CICT laboratories to replace informal reporting (chats, logbooks, verbal requests) with a centralized ticketing and equipment tracking system.",
@@ -66,6 +81,12 @@ export const projects = [
   },
   {
     id: 'lost-light',
+    summary: 'A 2D adventure/survival game where how brightly you glow changes what you can see and how enemies react.',
+    problem:
+      "Turn the team's game design document and 18-scene storyboard into a playable game with real risk-reward choices.",
+    solution:
+      'A light system with three glow levels that drain energy at different rates, Light Essence orbs that restore energy and set checkpoints, and terrain like swamps that slows movement and drains light.',
+    role: 'Developer: built the complete game from concept to playable build, including player control, enemy behavior, checkpoints, and level flow.',
     title: 'Lost Light',
     subtitle: '2D Adventure / Survival Game',
     kind: 'BSIT Game Project',
@@ -81,6 +102,12 @@ export const projects = [
   },
   {
     id: 'hive',
+    summary: 'Mobile interface design for a dormitory management system, prototyped and refined in Figma.',
+    problem:
+      'The dormitory management system needed a mobile interface that was easy to navigate and consistent with the rest of the system.',
+    solution:
+      'Figma prototypes for the mobile app, refined through iterations on layouts, navigation, and components based on project requirements and team feedback.',
+    role: 'Mobile UI/UX designer: designed, prototyped, and reviewed the mobile screens, working with the team to align them with the overall system design.',
     title: 'Hive',
     subtitle: 'Dormitory Management System',
     kind: 'BSIT Group Project',

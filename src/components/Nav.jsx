@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { profile } from '../data.js'
 import ThemeToggle from './ThemeToggle.jsx'
 
 const links = [
-  { href: '#work', label: 'Work' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#credentials', label: 'Credentials' },
-  { href: '#about', label: 'About' },
+  { to: '/work', label: 'Work' },
+  { to: '/skills', label: 'Skills' },
+  { to: '/credentials', label: 'Credentials' },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
 ]
 
 function Chevron() {
@@ -22,6 +24,13 @@ export default function Nav() {
   const [dropOpen, setDropOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const dropRef = useRef(null)
+  const { pathname } = useLocation()
+
+  // Any navigation closes the menu and the dropdown.
+  useEffect(() => {
+    setMenuOpen(false)
+    setDropOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -60,22 +69,21 @@ export default function Nav() {
   }, [menuOpen])
 
   const close = () => setMenuOpen(false)
-  const allLinks = [...links, { href: '#contact', label: 'Contact' }]
 
   return (
     <>
       <header className={`nav ${scrolled ? 'nav--scrolled' : ''} ${menuOpen ? 'nav--menu' : ''}`}>
         <div className="container nav__inner">
-          <a href="#top" className="brand" onClick={close} aria-label="Kurt Tristan Dela Rosa, home">
+          <Link to="/" className="brand" onClick={close} aria-label="Kurt Tristan Dela Rosa, home">
             <span className="brand__mark">KD</span>
             Kurt Dela Rosa
-          </a>
+          </Link>
 
           <nav className="nav__links" aria-label="Primary">
-            {allLinks.map((l) => (
-              <a key={l.href} href={l.href}>
+            {links.map((l) => (
+              <NavLink key={l.to} to={l.to}>
                 {l.label}
-              </a>
+              </NavLink>
             ))}
           </nav>
 
@@ -130,14 +138,14 @@ export default function Nav() {
         inert={menuOpen ? undefined : ''}
       >
         <nav className="sheet__links" aria-label="Mobile">
-          {allLinks.map((l, i) => (
-            <a key={l.href} href={l.href} onClick={close} style={{ '--i': i }}>
+          {links.map((l, i) => (
+            <NavLink key={l.to} to={l.to} onClick={close} style={{ '--i': i }}>
               <span className="sheet__num">0{i + 1}</span>
               <span className="sheet__label">{l.label}</span>
-            </a>
+            </NavLink>
           ))}
         </nav>
-        <div className="sheet__foot" style={{ '--i': allLinks.length }}>
+        <div className="sheet__foot" style={{ '--i': links.length }}>
           <a href={`mailto:${profile.email}`}>{profile.email}</a>
           <a href={profile.phoneHref}>{profile.phone}</a>
           <a className="btn btn--solid" href={profile.resume} download onClick={close}>
