@@ -53,10 +53,17 @@ html.theme-fade *::after {
   -webkit-mask: radial-gradient(circle closest-side, #000 70%, transparent 100%) 0 0 / 0 0 no-repeat;
   mask: radial-gradient(circle closest-side, #000 70%, transparent 100%) 0 0 / 0 0 no-repeat;
 }
-html.theme-switching .nav {
+/* Frosted (backdrop-filter) layers don't snapshot cleanly, so make them solid during the switch. */
+html.theme-switching .nav,
+html.theme-switching .portrait__tag {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
+}
+html.theme-switching .nav {
   background: var(--bg);
+}
+html.theme-switching .portrait__tag {
+  background: var(--card);
 }
 
 *,
@@ -460,6 +467,7 @@ p {
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   font-size: 13.5px;
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
 }
 .portrait__tag strong,
 .portrait__tag span {
