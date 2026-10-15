@@ -22,7 +22,7 @@ export default function Home() {
       <FeaturedCard />
 
       <section className="section container" id="work">
-        <SectionHead eyebrow="Selected work" title="Projects" more={{ to: '/work', label: 'All case studies' }}>
+        <SectionHead eyebrow="Selected work" title="Projects" more={{ to: '/projects', label: 'All projects' }}>
           Two games, a capstone platform, and a mobile UI system, each taken from idea to working build.
         </SectionHead>
         <ProjectsAccordion />
@@ -37,11 +37,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section container" id="credentials">
+      <section className="section container" id="education">
         <SectionHead
-          eyebrow="Credentials"
-          title="Education, awards & certifications"
-          more={{ to: '/credentials', label: 'Full timeline' }}
+          eyebrow="Education"
+          title="Education, honors & certifications"
+          more={{ to: '/education', label: 'Full timeline' }}
         />
         <div className="creds">
           <EducationAndAwards />

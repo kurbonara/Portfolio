@@ -38,7 +38,7 @@ export default function About() {
             </Reveal>
           )}
           <Reveal className="hero__actions" delay={140}>
-            <Link className="btn btn--solid" to="/work">
+            <Link className="btn btn--solid" to="/projects">
               See my work
             </Link>
             <Link className="btn btn--outline" to="/contact">

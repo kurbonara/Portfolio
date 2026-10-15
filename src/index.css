@@ -462,7 +462,10 @@ html {
 .hero {
   display: grid;
   grid-template-columns: 1.25fr 0.75fr;
-  gap: 64px;
+  grid-template-areas:
+    'text photo'
+    'facts facts';
+  gap: 48px 64px;
   align-items: center;
   padding-top: 96px;
   padding-bottom: 96px;
@@ -527,6 +530,18 @@ html {
   gap: 12px;
   margin-top: 32px;
 }
+.hero__text {
+  grid-area: text;
+}
+.hero .portrait {
+  grid-area: photo;
+}
+.hero__facts-row {
+  grid-area: facts;
+}
+.hero__facts-row .hero__facts {
+  margin-top: 0;
+}
 .hero__facts {
   display: flex;
   flex-wrap: wrap;
@@ -549,7 +564,11 @@ html {
   position: relative;
   border-radius: var(--radius);
   overflow: hidden;
-  aspect-ratio: 4 / 5;
+  /* Square, like the photo itself, so it isn't cropped and zoomed in. */
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 360px;
+  justify-self: end;
   background: var(--card);
   border: 1px solid var(--line);
   box-shadow: 0 30px 60px -30px var(--shadow);
@@ -1022,7 +1041,7 @@ html {
   background: var(--bg);
 }
 
-/* ---------- Credentials ---------- */
+/* ---------- Education ---------- */
 .creds {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
@@ -1341,7 +1360,7 @@ a:hover .more-link span {
   padding-top: 24px;
 }
 
-/* Case study */
+/* Project page */
 .case-banner {
   min-height: 0;
   height: clamp(220px, 32vw, 380px);
@@ -1444,7 +1463,7 @@ a:hover .more-link span {
   background: var(--bg);
 }
 
-/* Credentials timeline */
+/* Education timeline */
 .timeline__year {
   display: grid;
   grid-template-columns: 80px 1fr;
@@ -1478,6 +1497,7 @@ a:hover .more-link span {
 .about-page__photo {
   position: sticky;
   top: 96px;
+  justify-self: start;
 }
 .about-page__text > * + * {
   margin-top: 40px;
@@ -1527,7 +1547,7 @@ a:hover .more-link span {
   .about-page__photo {
     position: relative;
     top: auto;
-    max-width: 320px;
+    max-width: 260px;
   }
   .about-page__interests {
     grid-column: auto;
@@ -1561,13 +1581,15 @@ a:hover .more-link span {
   }
   .hero {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      'photo'
+      'text'
+      'facts';
     gap: 40px;
     padding-top: 40px;
   }
   .portrait {
-    order: -1;
-    width: 100%;
-    max-width: 320px;
+    max-width: 260px;
     justify-self: center;
   }
 }

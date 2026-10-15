@@ -4,19 +4,19 @@ import useTitle from '../components/useTitle.js'
 import { PageHeader, Tags, Arrow } from '../components/Sections.jsx'
 import { projects } from '../data.js'
 
-export default function Work() {
-  useTitle('Work')
+export default function Projects() {
+  useTitle('Projects')
   return (
     <>
-      <PageHeader eyebrow="Selected work" title="Case studies">
-        The problem behind each project, what I built to solve it, and the part I played.
+      <PageHeader eyebrow="Selected work" title="Projects">
+        The problem behind each project, how it was solved, and the part I played.
       </PageHeader>
 
       <section className="container page-body">
         <div className="work-grid">
           {projects.map((p, i) => (
             <Reveal key={p.id} delay={(i % 2) * 80}>
-              <Link to={`/work/${p.id}`} className="surface work-card">
+              <Link to={`/projects/${p.id}`} className="surface work-card">
                 <div className="work-card__top">
                   <span className="project__index">0{i + 1}</span>
                   <span className="muted">{p.kind}</span>
@@ -26,7 +26,7 @@ export default function Work() {
                 <p className="work-card__summary">{p.summary}</p>
                 <Tags items={p.stack.slice(0, 4)} />
                 <span className="more-link work-card__more">
-                  Read the case study <Arrow />
+                  View project <Arrow />
                 </span>
               </Link>
             </Reveal>

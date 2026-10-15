@@ -27,8 +27,8 @@ export default function Skills() {
                   <p className="muted">{p.subtitle}</p>
                 </div>
                 <Tags items={p.stack} />
-                <Link className="more-link" to={`/work/${p.id}`}>
-                  Case study <Arrow />
+                <Link className="more-link" to={`/projects/${p.id}`}>
+                  View project <Arrow />
                 </Link>
               </Reveal>
             ))}

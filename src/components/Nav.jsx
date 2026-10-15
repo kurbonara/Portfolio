@@ -4,9 +4,9 @@ import { profile } from '../data.js'
 import ThemeToggle from './ThemeToggle.jsx'
 
 const links = [
-  { to: '/work', label: 'Work' },
+  { to: '/projects', label: 'Projects' },
   { to: '/skills', label: 'Skills' },
-  { to: '/credentials', label: 'Credentials' },
+  { to: '/education', label: 'Education' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ]
@@ -76,7 +76,7 @@ export default function Nav() {
         <div className="container nav__inner">
           <Link to="/" className="brand" onClick={close} aria-label="Kurt Tristan Dela Rosa, home">
             <span className="brand__mark">KD</span>
-            Kurt Dela Rosa
+            Kurt Tristan Dela Rosa
           </Link>
 
           <nav className="nav__links" aria-label="Primary">

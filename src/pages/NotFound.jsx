@@ -7,15 +7,15 @@ export default function NotFound() {
   return (
     <>
       <PageHeader eyebrow="404" title="Lost in the fog">
-        This page isn't part of the portfolio. Head back home or browse the case studies.
+        This page isn't part of the portfolio. Head back home or browse my projects.
       </PageHeader>
       <section className="container page-body">
         <div className="hero__actions">
           <Link className="btn btn--solid" to="/">
             Back home
           </Link>
-          <Link className="btn btn--outline" to="/work">
-            Case studies
+          <Link className="btn btn--outline" to="/projects">
+            Projects
           </Link>
         </div>
       </section>

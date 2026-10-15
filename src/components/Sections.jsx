@@ -105,20 +105,22 @@ export function Hero() {
           Premiere Pro, and After Effects.
         </Reveal>
         <Reveal className="hero__actions" delay={240}>
-          <Link className="btn btn--solid" to="/work">
+          <Link className="btn btn--solid" to="/projects">
             View my work
           </Link>
           <Link className="btn btn--outline" to="/contact">
             Get in touch
           </Link>
         </Reveal>
-        <Reveal delay={300}>
-          <Facts />
-        </Reveal>
       </div>
 
       <Reveal className="portrait" delay={150}>
         <Portrait />
+      </Reveal>
+
+      {/* Its own row, so the photo centers on the name and buttons, not on this. */}
+      <Reveal className="hero__facts-row" delay={300}>
+        <Facts />
       </Reveal>
     </section>
   )
@@ -127,7 +129,7 @@ export function Hero() {
 export function FeaturedCard() {
   return (
     <Reveal className="container">
-      <Link to={`/work/${featured.id}`} className="feature">
+      <Link to={`/projects/${featured.id}`} className="feature">
         <FogScene />
         <div className="feature__content">
           <p className="feature__eyebrow">Featured game</p>
@@ -142,7 +144,7 @@ export function FeaturedCard() {
             ))}
           </ul>
           <span className="feature__cta">
-            Read the case study <Arrow />
+            View project <Arrow />
           </span>
         </div>
       </Link>
@@ -192,8 +194,8 @@ export function ProjectsAccordion() {
                   ))}
                 </ul>
                 <Tags items={p.stack} />
-                <Link className="more-link project__more" to={`/work/${p.id}`} tabIndex={isOpen ? 0 : -1}>
-                  Read the case study <Arrow />
+                <Link className="more-link project__more" to={`/projects/${p.id}`} tabIndex={isOpen ? 0 : -1}>
+                  View project <Arrow />
                 </Link>
               </div>
             </div>

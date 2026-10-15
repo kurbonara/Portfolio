@@ -24,7 +24,7 @@ export default function Project() {
 
   return (
     <>
-      <PageHeader eyebrow={p.subtitle} title={p.title} back={{ to: '/work', label: 'All case studies' }}>
+      <PageHeader eyebrow={p.subtitle} title={p.title} back={{ to: '/projects', label: 'All projects' }}>
         {p.summary}
       </PageHeader>
 
@@ -59,7 +59,7 @@ export default function Project() {
 
         <section className="case-section">
           <Reveal as="h2" className="case-section__title">
-            What I did
+            {p.team ? 'What we built' : 'What I did'}
           </Reveal>
           <Reveal as="ul" className="project__points case-points">
             {p.points.map((pt) => (
@@ -78,13 +78,13 @@ export default function Project() {
         </section>
 
         <nav className="case-nav" aria-label="More projects">
-          <Link to={`/work/${prev.id}`} className="surface case-nav__link">
+          <Link to={`/projects/${prev.id}`} className="surface case-nav__link">
             <span className="muted">
               <span aria-hidden="true">←</span> Previous
             </span>
             <strong>{prev.title}</strong>
           </Link>
-          <Link to={`/work/${next.id}`} className="surface case-nav__link case-nav__link--next">
+          <Link to={`/projects/${next.id}`} className="surface case-nav__link case-nav__link--next">
             <span className="muted">
               Next <Arrow />
             </span>

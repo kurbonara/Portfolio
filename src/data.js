@@ -1,5 +1,6 @@
 export const profile = {
-  name: 'Kurt Tristan R. Dela Rosa',
+  // Non-breaking space keeps the surname "Dela Rosa" on one line when the name wraps.
+  name: 'Kurt Tristan R. Dela\u00a0Rosa',
   shortName: 'Kurt Tristan',
   role: 'Front-end & game developer',
   status: 'Open to internships',
@@ -58,25 +59,26 @@ export const projects = [
   },
   {
     id: 'ilabcict',
+    team: true,
     summary:
-      "A web and mobile platform that replaces chats, logbooks, and verbal requests for BulSU CICT lab maintenance with one ticketing and equipment-tracking system.",
+      "A web and mobile platform our capstone team built to replace chats, logbooks, and verbal requests for BulSU CICT lab maintenance with one ticketing and equipment-tracking system.",
     problem:
       "Lab issues at BulSU's CICT were reported informally through chats, logbooks, and verbal requests, so requests were hard to track and repair history was scattered.",
     solution:
-      'Centralized ticketing with tracking numbers, QR codes on equipment, a computer inventory with repair history, automated reports, and role-based access for faculty, technicians, and administrators.',
+      'We built centralized ticketing with tracking numbers, QR codes on equipment, a computer inventory with repair history, automated reports, and role-based access for faculty, technicians, and administrators.',
     role: 'Developer on the capstone team, working in Agile Scrum with daily standups and Figma prototypes. The web app is deployed on Vercel.',
     title: 'iLabCICT',
     subtitle: 'Laboratory Maintenance & Technical Support Management System',
-    kind: 'BSIT Capstone Project',
+    kind: 'BSIT Capstone Project · Team',
     platform: 'Web · Mobile',
     date: 'March 2026',
     stack: ['ReactJS (Vite)', 'TypeScript', 'TailwindCSS', 'React Native', 'Django', 'PostgreSQL', 'Figma'],
     points: [
-      "Developed a web and mobile platform for BulSU's CICT laboratories to replace informal reporting (chats, logbooks, verbal requests) with a centralized ticketing and equipment tracking system.",
-      'Built maintenance request ticketing with tracking numbers, QR code equipment access, computer inventory, repair history, and automated report generation.',
-      'Implemented role-based access for faculty, technicians, and administrators, plus an admin dashboard for request status and response times.',
-      'Worked in an Agile Scrum process with daily standups and Figma prototyping; deployed the web app on Vercel.',
-      'Evaluated against ISO/IEC 25010:2023 quality characteristics.',
+      "As a team, we developed a web and mobile platform for BulSU's CICT laboratories to replace informal reporting (chats, logbooks, verbal requests) with a centralized ticketing and equipment tracking system.",
+      'We built maintenance request ticketing with tracking numbers, QR code equipment access, computer inventory, repair history, and automated report generation.',
+      'We implemented role-based access for faculty, technicians, and administrators, plus an admin dashboard for request status and response times.',
+      'We worked in an Agile Scrum process with daily standups and Figma prototyping, and deployed the web app on Vercel.',
+      'We evaluated the system against ISO/IEC 25010:2023 quality characteristics.',
     ],
   },
   {
