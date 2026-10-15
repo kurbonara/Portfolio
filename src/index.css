@@ -1141,7 +1141,6 @@ html {
   grid-template-rows: auto 1fr auto;
   gap: 16px;
   padding: 28px;
-  background-image: radial-gradient(120% 60% at 0% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
 }
 .form__message {
   grid-template-rows: auto 1fr;
