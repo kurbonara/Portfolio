@@ -301,7 +301,7 @@ function ContactForm() {
           <input required type="email" value={form.email} onChange={set('email')} autoComplete="email" />
         </label>
       </div>
-      <label>
+      <label className="form__message">
         Message
         <textarea required rows="5" value={form.message} onChange={set('message')} />
       </label>
@@ -340,7 +340,7 @@ function Contact() {
             Download résumé
           </a>
         </Reveal>
-        <Reveal delay={100}>
+        <Reveal className="contact__form" delay={100}>
           <ContactForm />
         </Reveal>
       </div>

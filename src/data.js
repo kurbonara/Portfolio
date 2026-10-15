@@ -10,8 +10,8 @@ export const profile = {
   ],
   location: 'Mojon, City of Malolos, Bulacan',
   city: 'Malolos, Bulacan',
-  phone: '+63-948-253-8193',
-  phoneHref: 'tel:+639482538193',
+  phone: '+63-907-010-0786',
+  phoneHref: 'tel:+639070100786',
   email: 'kurttristan.r.delarosa@gmail.com',
   // Put your résumé PDF in /public with this file name to enable the download link.
   resume: '/KurtTristanDelaRosa.pdf',
@@ -135,7 +135,7 @@ export const skills = [
 ]
 
 export const certifications = [
-  { name: 'Information Technology Specialist — Python', date: 'Oct 2026' },
+  { name: 'Information Technology Specialist in Python', date: 'Oct 2026' },
   { name: 'Gemini Certified University Student', date: 'Sep 2026' },
   { name: 'Salesforce Supported Virtual Internship Program', date: 'Jan 2026' },
   { name: 'Agentblazer Champion Workshop', date: 'Sep 2025' },
