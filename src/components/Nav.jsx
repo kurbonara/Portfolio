@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { profile } from '../data.js'
+import ThemeToggle from './ThemeToggle.jsx'
 
 const links = [
   { href: '#work', label: 'Work' },
@@ -57,6 +58,7 @@ export default function Nav() {
         </nav>
 
         <div className="nav__actions">
+          <ThemeToggle />
           <div className="split-btn" ref={dropRef}>
             <a className="split-btn__main" href={`mailto:${profile.email}`}>
               Hire me
