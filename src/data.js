@@ -30,7 +30,7 @@ export const projects = [
     title: 'Fogbound',
     subtitle: '3D Horror / Survival Adventure',
     kind: 'Unity Game Project',
-    date: 'Windows · macOS · iOS',
+    platform: 'Windows · macOS · iOS',
     stack: ['Unity 6', 'C#', 'Rigidbody Physics', 'Mobile Touch Controls', 'JSON Save System'],
     points: [
       "Built a 3D horror-survival game set on a fog-bound archipelago, where the player follows a lighthouse keeper's scattered journal pages from island to island to light the signal fire on Beacon Rock and call a rescue ship.",
@@ -46,7 +46,7 @@ export const projects = [
     title: 'iLabCICT',
     subtitle: 'Laboratory Maintenance & Technical Support Management System',
     kind: 'BSIT Capstone Project',
-    date: 'March 2026',
+    platform: 'Web · Mobile',
     stack: ['ReactJS (Vite)', 'TypeScript', 'TailwindCSS', 'React Native', 'Django', 'PostgreSQL', 'Figma'],
     points: [
       "Developed a web and mobile platform for BulSU's CICT laboratories to replace informal reporting (chats, logbooks, verbal requests) with a centralized ticketing and equipment tracking system.",
@@ -61,7 +61,7 @@ export const projects = [
     title: 'Lost Light',
     subtitle: '2D Adventure / Survival Game',
     kind: 'BSIT Game Project',
-    date: 'Android / PC',
+    platform: 'Android · PC',
     stack: ['Unity', 'C#'],
     points: [
       'Developed the complete game from concept to playable build, implementing all core gameplay systems, including player control, enemy behavior, checkpoints, and level flow.',
@@ -76,7 +76,7 @@ export const projects = [
     title: 'Hive',
     subtitle: 'Dormitory Management System',
     kind: 'BSIT Group Project',
-    date: 'Mobile UI/UX',
+    platform: 'Mobile UI/UX',
     stack: ['Figma', 'UI/UX Design', 'Mobile Interface Design'],
     points: [
       'Designed the mobile user interface for a dormitory management system using Figma.',

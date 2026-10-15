@@ -128,7 +128,7 @@ function Projects() {
                 <span className="project__kind">
                   {p.kind}
                   <br />
-                  <span className="muted">{p.date}</span>
+                  <span className="muted">{p.platform}</span>
                 </span>
                 <span className="project__toggle" aria-hidden="true">
                   {isOpen ? '−' : '+'}
