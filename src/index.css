@@ -1,16 +1,16 @@
 :root {
-  --bg: #e8edf1;
-  --bg-alt: #dbe3e9;
-  --card: #f7f9fb;
+  --bg: #fbfcfd;
+  --bg-alt: #f2f5f8;
+  --card: #ffffff;
   --ink: #0e1a26;
-  --ink-soft: #33414f;
-  --muted: #5f6d7a;
-  --line: #c5d0d9;
+  --ink-soft: #3a4654;
+  --muted: #66727e;
+  --line: #e0e6ec;
   --accent: #0b7480;
   --on-accent: #ffffff;
   --btn-hover: #1c2c3b;
-  --btn-divider: rgba(232, 237, 241, 0.25);
-  --shadow: rgba(14, 26, 38, 0.12);
+  --btn-divider: rgba(251, 252, 253, 0.25);
+  --shadow: rgba(14, 26, 38, 0.1);
   /* System font stack (SF Pro on Apple devices), same as paul-mojal.vercel.app. */
   --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Inter, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Inter, sans-serif;
