@@ -349,6 +349,11 @@ p {
 html.menu-open {
   overflow: hidden;
 }
+/* Keep the scrollbar's space reserved, so locking scroll for the menu
+   doesn't widen the page and shift everything sideways. */
+html {
+  scrollbar-gutter: stable;
+}
 .nav--menu {
   background: var(--bg);
   -webkit-backdrop-filter: none;

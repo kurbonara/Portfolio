@@ -42,6 +42,9 @@ export default function Nav() {
   useEffect(() => {
     if (!menuOpen) return
     const root = document.documentElement
+    // Browsers without scrollbar-gutter: pad by the scrollbar's width instead.
+    const gap = CSS.supports('scrollbar-gutter: stable') ? 0 : window.innerWidth - root.clientWidth
+    if (gap) root.style.paddingRight = `${gap}px`
     root.classList.add('menu-open')
     const onKey = (e) => e.key === 'Escape' && setMenuOpen(false)
     const mq = window.matchMedia('(min-width: 821px)')
@@ -50,6 +53,7 @@ export default function Nav() {
     mq.addEventListener('change', onWide)
     return () => {
       root.classList.remove('menu-open')
+      root.style.paddingRight = ''
       window.removeEventListener('keydown', onKey)
       mq.removeEventListener('change', onWide)
     }
