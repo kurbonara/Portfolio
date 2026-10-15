@@ -234,15 +234,15 @@ function Credentials() {
           <Reveal className="cred-block">
             <h3 className="cred-block__label">Education</h3>
             <p className="cred-block__title">{education.school}</p>
-            <p className="serif">{education.degree}</p>
-            <p className="serif muted">{education.major}</p>
+            <p className="cred-block__text">{education.degree}</p>
+            <p className="cred-block__text muted">{education.major}</p>
             <p className="cred-block__date">{education.years}</p>
           </Reveal>
           {awards.map((a) => (
             <Reveal key={a.name} className="cred-block" delay={80}>
               <h3 className="cred-block__label">Award</h3>
               <p className="cred-block__title">{a.name}</p>
-              <p className="serif muted">{a.org}</p>
+              <p className="cred-block__text muted">{a.org}</p>
               <p className="cred-block__date">{a.date}</p>
             </Reveal>
           ))}
@@ -270,7 +270,7 @@ function About() {
         <Reveal className="about__main">
           <p className="eyebrow">About</p>
           <h2 className="section-title">How I work</h2>
-          <p className="serif about__objective">{profile.objective}</p>
+          <p className="about__objective">{profile.objective}</p>
         </Reveal>
         <Reveal className="surface about__interests" delay={100}>
           <h3 className="cred-block__label">Interests</h3>
