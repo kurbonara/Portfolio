@@ -571,6 +571,13 @@ p {
 .scene__lamp {
   fill: #ffe2a8;
 }
+.scene__tower-band {
+  fill: #1a2d40;
+}
+.scene__tower-window {
+  fill: #ffd68c;
+  opacity: 0.55;
+}
 .scene__glints rect {
   fill: #ffd68c;
   opacity: 0.35;
@@ -715,6 +722,7 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .theme-toggle svg,
   .scene__beam,
   .scene__glints rect,
   .fog {
