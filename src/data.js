@@ -17,7 +17,11 @@ export const featured = {
   id: 'fogbound',
   title: 'Fogbound',
   tagline: 'A storm-swept horror survival game on a lost archipelago. The fog will not let you leave.',
-  meta: 'Unity 6 · C# · Windows / macOS / iOS',
+  stats: [
+    { value: 'Unity 6', label: 'Built in C#' },
+    { value: '3', label: 'Difficulty levels' },
+    { value: '3', label: 'Platforms: Windows, macOS, iOS' },
+  ],
 }
 
 export const projects = [

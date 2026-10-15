@@ -43,22 +43,63 @@ function Hero() {
 function FeaturedCard() {
   return (
     <Reveal className="container">
-      <a href={`#${featured.id}`} className="feature-card">
-        <svg className="arch" viewBox="0 0 1000 340" role="img" aria-label={featured.title}>
-          <defs>
-            <path id="arch-text" d="M 150 260 Q 500 70 850 260" />
-          </defs>
-          <text className="arch__text" textAnchor="middle">
-            <textPath href="#arch-text" startOffset="50%">
-              {featured.title}
-            </textPath>
-          </text>
-          <path className="arch__line" d="M 20 338 Q 500 150 980 338" />
-        </svg>
-        <p className="feature-card__tagline">{featured.tagline}</p>
-        <p className="feature-card__meta">
-          {featured.meta} <span aria-hidden="true">→</span>
-        </p>
+      <a href={`#${featured.id}`} className="feature">
+        <div className="feature__scene" aria-hidden="true">
+          <svg viewBox="0 0 1200 400" preserveAspectRatio="xMaxYMax slice">
+            <defs>
+              <linearGradient id="beam-r" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stopColor="#ffd68c" stopOpacity="0.55" />
+                <stop offset="1" stopColor="#ffd68c" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="beam-l" x1="1" x2="0" y1="0" y2="0">
+                <stop offset="0" stopColor="#ffd68c" stopOpacity="0.55" />
+                <stop offset="1" stopColor="#ffd68c" stopOpacity="0" />
+              </linearGradient>
+              <radialGradient id="lamp-glow">
+                <stop offset="0" stopColor="#ffe2a8" stopOpacity="0.9" />
+                <stop offset="1" stopColor="#ffe2a8" stopOpacity="0" />
+              </radialGradient>
+            </defs>
+            <circle className="scene__moon" cx="250" cy="90" r="26" />
+            <g className="scene__beam">
+              <polygon points="901,179 1400,120 1400,238" fill="url(#beam-r)" />
+              <polygon points="901,179 402,120 402,238" fill="url(#beam-l)" />
+            </g>
+            <path className="scene__isle scene__isle--far" d="M0 300 L0 268 Q60 240 140 262 Q200 250 260 276 L300 300 Z" />
+            <path className="scene__isle scene__isle--far" d="M470 300 Q520 284 570 289 Q600 292 625 300 Z" />
+            <path className="scene__isle" d="M740 300 Q800 266 860 261 Q900 252 960 257 Q1030 265 1090 300 Z" />
+            <polygon className="scene__isle" points="889,262 913,262 907,186 895,186" />
+            <rect className="scene__lamp" x="894" y="172" width="14" height="14" />
+            <polygon className="scene__isle" points="889,172 901,159 913,172" />
+            <circle cx="901" cy="179" r="34" fill="url(#lamp-glow)" />
+            <rect className="scene__sea" x="0" y="300" width="1200" height="100" />
+            <g className="scene__glints">
+              <rect x="888" y="312" width="26" height="1.5" />
+              <rect x="880" y="326" width="42" height="1.5" />
+              <rect x="892" y="342" width="18" height="1.5" />
+            </g>
+          </svg>
+          <div className="fog fog--1" />
+          <div className="fog fog--2" />
+          <div className="fog fog--3" />
+        </div>
+
+        <div className="feature__content">
+          <p className="feature__eyebrow">Featured game</p>
+          <h2 className="feature__title">{featured.title}</h2>
+          <p className="feature__tagline">{featured.tagline}</p>
+          <ul className="feature__stats">
+            {featured.stats.map((s) => (
+              <li key={s.label}>
+                <strong>{s.value}</strong>
+                <span>{s.label}</span>
+              </li>
+            ))}
+          </ul>
+          <span className="feature__cta">
+            Explore the project <span aria-hidden="true">→</span>
+          </span>
+        </div>
       </a>
     </Reveal>
   )
