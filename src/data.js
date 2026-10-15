@@ -1,7 +1,15 @@
 export const profile = {
   name: 'Kurt Tristan R. Dela Rosa',
   shortName: 'Kurt Tristan',
+  role: 'Front-end & game developer',
+  status: 'Open to internships',
+  facts: [
+    { label: 'Studying', value: 'BSIT, BulSU' },
+    { label: 'Focus', value: 'React · Unity' },
+    { label: 'Graduating', value: '2027' },
+  ],
   location: 'Mojon, City of Malolos, Bulacan',
+  city: 'Malolos, Bulacan',
   phone: '+63-948-253-8193',
   phoneHref: 'tel:+639482538193',
   email: 'kurttristan.r.delarosa@gmail.com',

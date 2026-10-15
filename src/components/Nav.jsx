@@ -42,8 +42,9 @@ export default function Nav() {
   return (
     <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
       <div className="container nav__inner">
-        <a href="#top" className="logo" onClick={close} aria-label="Kurt Tristan Dela Rosa, home">
-          KURT<span className="logo__slash">\</span>TRISTAN
+        <a href="#top" className="brand" onClick={close} aria-label="Kurt Tristan Dela Rosa, home">
+          <span className="brand__mark">KD</span>
+          Kurt Dela Rosa
         </a>
 
         <nav className={`nav__links ${menuOpen ? 'is-open' : ''}`} aria-label="Primary">

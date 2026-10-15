@@ -23,18 +23,56 @@ function SectionHead({ eyebrow, title, children }) {
 }
 
 function Hero() {
+  const [photoOk, setPhotoOk] = useState(true)
   return (
     <section className="hero container" id="top">
-      <Reveal as="h1" className="hero__title">
-        <a href="#work" className="ul">Games</a> and <a href="#work" className="ul">software</a> built
-        with care, light, and purpose
-      </Reveal>
-      <Reveal className="hero__lede" delay={120}>
-        <p>
-          I'm {profile.shortName}, a front-end developer and IT student at Bulacan State University. I build web and
-          mobile interfaces in React, games in Unity and C#, and visuals in Photoshop, Illustrator, Premiere Pro, and
-          After Effects.
-        </p>
+      <div className="hero__text">
+        <Reveal>
+          <span className="status">
+            <span className="status__dot" aria-hidden="true" />
+            {profile.status}
+          </span>
+        </Reveal>
+        <Reveal as="h1" className="hero__title" delay={60}>
+          {profile.name}
+        </Reveal>
+        <Reveal as="p" className="hero__role" delay={120}>
+          {profile.role}
+        </Reveal>
+        <Reveal as="p" className="hero__lede" delay={180}>
+          I build web and mobile interfaces in React, games in Unity and C#, and visuals in Photoshop, Illustrator,
+          Premiere Pro, and After Effects.
+        </Reveal>
+        <Reveal className="hero__actions" delay={240}>
+          <a className="btn btn--solid" href="#work">
+            View my work
+          </a>
+          <a className="btn btn--outline" href="#contact">
+            Get in touch
+          </a>
+        </Reveal>
+        <Reveal as="dl" className="hero__facts" delay={300}>
+          {profile.facts.map((f) => (
+            <div key={f.label}>
+              <dt>{f.label}</dt>
+              <dd>{f.value}</dd>
+            </div>
+          ))}
+        </Reveal>
+      </div>
+
+      <Reveal className="portrait" delay={150}>
+        {photoOk ? (
+          <img src={profile.photo} alt={`Portrait of ${profile.name}`} onError={() => setPhotoOk(false)} />
+        ) : (
+          <div className="portrait__fallback" aria-hidden="true">
+            KD
+          </div>
+        )}
+        <div className="portrait__tag">
+          <strong>{profile.shortName}</strong>
+          <span>{profile.city}</span>
+        </div>
       </Reveal>
     </section>
   )
@@ -45,7 +83,7 @@ function FeaturedCard() {
     <Reveal className="container">
       <a href={`#${featured.id}`} className="feature">
         <div className="feature__scene" aria-hidden="true">
-          <svg viewBox="0 0 1200 400" preserveAspectRatio="xMaxYMax slice">
+          <svg viewBox="0 0 1200 400" preserveAspectRatio="xMaxYMax meet">
             <defs>
               <linearGradient id="beam-r" x1="0" x2="1" y1="0" y2="0">
                 <stop offset="0" stopColor="#ffd68c" stopOpacity="0.55" />
@@ -60,7 +98,6 @@ function FeaturedCard() {
                 <stop offset="1" stopColor="#ffe2a8" stopOpacity="0" />
               </radialGradient>
             </defs>
-            <circle className="scene__moon" cx="250" cy="90" r="26" />
             <g className="scene__beam">
               <polygon points="901,179 1400,120 1400,238" fill="url(#beam-r)" />
               <polygon points="901,179 402,120 402,238" fill="url(#beam-l)" />
@@ -163,18 +200,18 @@ function Skills() {
         <SectionHead eyebrow="Toolkit" title="Technical skills">
           From gameplay systems to relational databases, the tools I reach for most.
         </SectionHead>
-        <div className="skills">
-          {skills.map((s, i) => (
-            <Reveal key={s.group} className="skill-card" delay={(i % 3) * 80}>
+        <Reveal className="surface skills">
+          {skills.map((s) => (
+            <div key={s.group} className="skill-row">
               <h3>{s.group}</h3>
               <ul className="tags">
                 {s.items.map((it) => (
                   <li key={it}>{it}</li>
                 ))}
               </ul>
-            </Reveal>
+            </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )
@@ -219,23 +256,15 @@ function Credentials() {
 }
 
 function About() {
-  const [photoOk, setPhotoOk] = useState(true)
   return (
     <section className="section section--alt" id="about">
       <div className="container about">
-        <Reveal className="about__photo">
-          {photoOk ? (
-            <img src={profile.photo} alt={profile.name} onError={() => setPhotoOk(false)} />
-          ) : (
-            <div className="about__monogram" aria-hidden="true">
-              KT
-            </div>
-          )}
-        </Reveal>
-        <Reveal className="about__text" delay={100}>
+        <Reveal className="about__main">
           <p className="eyebrow">About</p>
-          <h2 className="section-title">{profile.name}</h2>
+          <h2 className="section-title">How I work</h2>
           <p className="serif about__objective">{profile.objective}</p>
+        </Reveal>
+        <Reveal className="surface about__interests" delay={100}>
           <h3 className="cred-block__label">Interests</h3>
           <ul className="interests">
             {interests.map((it) => (
@@ -248,35 +277,87 @@ function About() {
   )
 }
 
+function ContactForm() {
+  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
+
+  // No backend: hand the message to the visitor's mail app.
+  const submit = (e) => {
+    e.preventDefault()
+    const subject = encodeURIComponent(`Portfolio message from ${form.name}`)
+    const body = encodeURIComponent(`${form.message}\n\n${form.name}\n${form.email}`)
+    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
+  }
+
+  return (
+    <form className="surface form" onSubmit={submit}>
+      <div className="form__row">
+        <label>
+          Your name
+          <input required value={form.name} onChange={set('name')} autoComplete="name" />
+        </label>
+        <label>
+          Your email
+          <input required type="email" value={form.email} onChange={set('email')} autoComplete="email" />
+        </label>
+      </div>
+      <label>
+        Message
+        <textarea required rows="5" value={form.message} onChange={set('message')} />
+      </label>
+      <div className="form__foot">
+        <button className="btn btn--solid" type="submit">
+          Send message
+        </button>
+        <span className="muted">Opens your mail app</span>
+      </div>
+    </form>
+  )
+}
+
 function Contact() {
   return (
-    <footer className="footer" id="contact">
-      <div className="container">
-        <Reveal className="footer__cta">
-          <h2 className="footer__title">Let's build something together.</h2>
-          <p className="serif footer__lede">
-            Open to internships and entry-level roles in front-end, game, and Salesforce development, and in
-            design and motion work.
-          </p>
-          <div className="footer__actions">
-            <a className="btn btn--light" href={`mailto:${profile.email}`}>
-              {profile.email}
-            </a>
-            <a className="btn btn--ghost" href={profile.phoneHref}>
-              {profile.phone}
-            </a>
-            <a className="btn btn--ghost" href={profile.resume} download>
-              Download résumé
-            </a>
+    <section className="section container" id="contact">
+      <SectionHead eyebrow="Contact" title="Let's build something together">
+        Open to internships and entry-level roles in front-end, game, and Salesforce development, and in design and
+        motion work.
+      </SectionHead>
+      <div className="contact">
+        <Reveal className="contact__cards">
+          <div className="surface contact-card">
+            <p className="contact-card__label">Email</p>
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
           </div>
+          <div className="surface contact-card">
+            <p className="contact-card__label">Phone</p>
+            <a href={profile.phoneHref}>{profile.phone}</a>
+          </div>
+          <div className="surface contact-card">
+            <p className="contact-card__label">Based in</p>
+            <span>{profile.location}</span>
+          </div>
+          <a className="btn btn--outline" href={profile.resume} download>
+            Download résumé
+          </a>
         </Reveal>
-        <div className="footer__bottom">
-          <span className="logo logo--light">
-            KURT<span className="logo__slash">\</span>TRISTAN
-          </span>
-          <span>{profile.location}</span>
-          <span>© {new Date().getFullYear()} {profile.name}</span>
-        </div>
+        <Reveal delay={100}>
+          <ContactForm />
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="container footer__inner">
+        <span className="brand">
+          <span className="brand__mark">KD</span>
+          {profile.name}
+        </span>
+        <span>Built with React + Vite</span>
+        <span>© {new Date().getFullYear()}</span>
       </div>
     </footer>
   )
@@ -293,8 +374,9 @@ export default function App() {
         <Skills />
         <Credentials />
         <About />
+        <Contact />
       </main>
-      <Contact />
+      <Footer />
     </>
   )
 }
