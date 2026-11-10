@@ -12,9 +12,9 @@
   --btn-hover: #2b2b2b;
   --btn-divider: rgba(252, 252, 252, 0.25);
   --shadow: rgba(20, 20, 20, 0.1);
-  /* Playful fonts: chunky display, friendly body. */
-  --font-display: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-body: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* One friendly, clean font for everything. */
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --radius: 28px;
   --max: 1200px;
   --gutter: clamp(20px, 5vw, 56px);
@@ -863,7 +863,7 @@ a:hover .more-link span {
   font-size: clamp(40px, 6vw, 72px);
   line-height: 1.02;
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   max-width: 900px;
 }
 .page-lede {
@@ -1111,35 +1111,46 @@ a:hover .more-link span {
   font-size: clamp(34px, 5.2vw, 64px);
   font-weight: 650;
   line-height: 1.12;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
+}
+.intro__me {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
 }
 .intro__face {
-  display: inline-block;
-  width: 1.05em;
-  height: 1.05em;
-  margin: 0 0.08em;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: 50% 18%;
-  vertical-align: -0.17em;
-  box-shadow: 0 0 0 3px var(--bg), 0 6px 18px -8px var(--shadow);
+  object-position: 50% 15%;
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--line);
+}
+.intro__me strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+}
+.intro__me span span {
+  font-size: 14px;
+  color: var(--muted);
 }
 /* The words that filter the projects below. */
 .intro__word {
-  position: relative;
+  padding: 0;
   font: inherit;
   letter-spacing: inherit;
   color: var(--c);
-  background-image: linear-gradient(color-mix(in srgb, var(--c) 18%, transparent), color-mix(in srgb, var(--c) 18%, transparent));
-  background-repeat: no-repeat;
-  background-position: 0 88%;
-  background-size: 100% 0.28em;
-  border-radius: 4px;
-  transition: background-size 0.25s ease;
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.14em;
+  text-decoration-color: color-mix(in srgb, var(--c) 35%, transparent);
+  transition: text-decoration-color 0.2s ease;
 }
 .intro__word:hover,
 .intro__word:focus-visible {
-  background-size: 100% 100%;
+  text-decoration-color: var(--c);
   outline: none;
 }
 .intro__word--web {
@@ -1483,8 +1494,8 @@ h3 {
   letter-spacing: -0.025em;
 }
 .intro__title {
-  font-weight: 750;
-  letter-spacing: -0.04em;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 .label,
 .eyebrow {
@@ -1559,9 +1570,9 @@ h3 {
 }
 .pj-head__title {
   font-size: clamp(44px, 7vw, 88px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.025em;
 }
 .pj-head__tagline {
   max-width: 760px;
@@ -1641,7 +1652,7 @@ h3 {
   background: color-mix(in srgb, var(--pc) 14%, transparent);
   font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--pc);
@@ -1682,7 +1693,7 @@ h3 {
 .pj-note__title {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1;
@@ -1715,7 +1726,7 @@ h3 {
   color: var(--pc);
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 700;
 }
 :root[data-theme='dark'] .pj-feature__num {
   color: color-mix(in srgb, var(--pc) 55%, white);
@@ -1770,7 +1781,7 @@ h3 {
   left: 36px;
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 750;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   opacity: 0.9;
@@ -1793,8 +1804,8 @@ h3 {
   display: block;
   font-family: var(--font-display);
   font-size: clamp(28px, 3vw, 40px);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.025em;
   line-height: 1;
 }
 .pj-next__text em {
@@ -1837,7 +1848,7 @@ h3 {
 .marquee__track span {
   font-family: var(--font-display);
   font-size: 28px;
-  font-weight: 750;
+  font-weight: 700;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
@@ -1901,7 +1912,7 @@ h3 {
 .ba--status strong {
   font-family: var(--font-display);
   font-size: 22px;
-  font-weight: 750;
+  font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -1919,7 +1930,7 @@ h3 {
   color: #3d3714;
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 750;
+  font-weight: 700;
   transform: rotate(-4deg);
 }
 .ba--fact,
@@ -1937,7 +1948,7 @@ h3 {
 .ba--fact strong {
   font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 750;
+  font-weight: 700;
   letter-spacing: -0.02em;
 }
 .ba--fact-0 {
@@ -1960,9 +1971,9 @@ h3 {
 .ba--count strong {
   font-family: var(--font-display);
   font-size: 56px;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 0.9;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.025em;
 }
 .ba--count span {
   color: color-mix(in srgb, var(--bg) 70%, transparent);
@@ -1976,10 +1987,10 @@ h3 {
   padding: 64px 56px;
   border-radius: 32px;
   background:
-    radial-gradient(60% 90% at 100% 0%, rgba(255, 255, 255, 0.22), transparent 60%),
-    linear-gradient(135deg, #059669 0%, #0d9488 45%, #2563eb 100%);
+    radial-gradient(70% 100% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 60%),
+    #047857;
   color: #fff;
-  box-shadow: 0 50px 90px -40px rgba(5, 150, 105, 0.7);
+  box-shadow: 0 24px 48px -32px var(--shadow);
 }
 .cta-panel::after {
   content: '';
@@ -2006,16 +2017,16 @@ h3 {
   color: #3d2f00;
   font-family: var(--font-display);
   font-size: 17px;
-  font-weight: 800;
+  font-weight: 700;
   transform: rotate(8deg);
   box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.4);
 }
 .cta-panel__title {
   max-width: 680px;
   font-size: clamp(34px, 5vw, 60px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.02;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.025em;
 }
 .cta-panel__sub {
   margin-top: 14px;
@@ -2189,7 +2200,7 @@ h3 {
 .ae-card__label {
   font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 750;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink);
@@ -2360,4 +2371,13 @@ h3 {
   .ae {
     grid-template-columns: 1fr;
   }
+}
+
+:root[data-theme='dark'] .ba--count {
+  background: var(--card);
+  border-color: var(--line);
+  color: var(--ink);
+}
+:root[data-theme='dark'] .ba--count span {
+  color: var(--muted);
 }

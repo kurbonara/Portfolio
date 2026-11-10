@@ -129,10 +129,15 @@ export function Hero({ onPick, onPreview }) {
   return (
     <section className="intro-wrap" id="top" onPointerMove={onMove}>
       <div className="container intro">
+        <Reveal className="intro__me">
+          <img className="intro__face" src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
+          <span>
+            <strong>{profile.name}</strong>
+            <span>{profile.city}</span>
+          </span>
+        </Reveal>
         <Reveal as="h1" className="intro__title">
-          Hi, I'm{' '}
-          <img className="intro__face" src={profile.photo} alt="" width="64" height="64" />
-          Kurt. I build apps for the {word('web')}, the {word('mac')}, and the occasional {word('game')}.
+          Hi, I'm Kurt. I build apps for the {word('web')}, the {word('mac')}, and the occasional {word('game')}.
         </Reveal>
         <Reveal as="p" className="intro__sub" delay={120}>
           <span className="status__dot" aria-hidden="true" />
