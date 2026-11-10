@@ -1,0 +1,34 @@
+<html><head><link rel="stylesheet" href="kit.css"><style>
+body { --bg:#5b5bf7; --c1:#a78bfa; --c2:#38bdf8; --c3:#2dd4bf; }
+.win { left: 250px; top: 120px; width: 1040px; height: 720px; }
+.app { display: grid; grid-template-columns: 250px 1fr; height: calc(100% - 46px); }
+.side { background: #f3f2f8; border-right: 1px solid rgba(0,0,0,.06); padding: 18px 14px; display: flex; flex-direction: column; gap: 4px; }
+.side b { font-size: 12px; color: #8a8a99; margin: 6px 10px; letter-spacing: .04em; }
+.side span { padding: 10px 12px; border-radius: 9px; font-size: 16px; font-weight: 500; color: #333; display: flex; gap: 10px; align-items: center; }
+.side span.on { background: #5b5bf7; color: #fff; }
+.main { padding: 30px 34px; }
+.main h2 { font-size: 26px; letter-spacing: -.01em; }
+.main p.sub { color: #777; margin-top: 4px; font-size: 16px; }
+.row { display: flex; align-items: center; gap: 16px; margin-top: 16px; padding: 16px 18px; border-radius: 14px; background: #f6f6f9; }
+.ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(160deg,#8b7cff,#3b82f6); color: #fff; flex: none; }
+.ic svg { width: 22px; height: 22px; }
+.t { flex: 1; } .t b { display: block; font-size: 18px; color: #222; } .t span { font-size: 14.5px; color: #888; }
+.sel { padding: 8px 14px; border-radius: 9px; background: #fff; border: 1px solid #e3e3ea; font-size: 15px; font-weight: 600; color: #333; display: flex; gap: 8px; align-items: center; }
+.sel::after { content: '⌄'; color: #999; }
+.slider { margin-top: 22px; }
+.slider .lbl { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; color: #333; }
+.track { margin-top: 12px; height: 6px; border-radius: 6px; background: #e3e3ea; position: relative; }
+.track::before { content: ''; position: absolute; left: 0; width: 64%; height: 100%; border-radius: 6px; background: #5b5bf7; }
+.track::after { content: ''; position: absolute; left: 64%; top: 50%; width: 22px; height: 22px; border-radius: 50%; background: #fff; transform: translate(-50%,-50%); box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+.appicon { position: absolute; left: 150px; bottom: 50px; width: 160px; filter: drop-shadow(0 24px 30px rgba(20,10,80,.4)); transform: rotate(-8deg); }
+</style></head><body><div class="mesh"></div><div class="dots"></div>
+<div class="win"><div class="bar"><i></i><i></i><i></i><span class="title">Mousey Settings</span></div>
+ <div class="app"><div class="side"><b>MOUSEY</b><span>General</span><span class="on">Side buttons</span><span>Smooth scrolling</span><span>Mouse wheel</span></div>
+  <div class="main"><h2>Side buttons</h2><p class="sub">Click, hold and scroll, or drag with the back button.</p>
+   <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg></span><span class="t"><b>Click</b><span>Quick press</span></span><span class="sel">Mission Control</span></div>
+   <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/></svg></span><span class="t"><b>Hold + scroll</b><span>Scroll to pick, release to switch</span></span><span class="sel">App switcher</span></div>
+   <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg></span><span class="t"><b>Hold + drag ← →</b><span>Move between desktops</span></span><span class="sel">Switch Space</span></div>
+   <div class="slider"><div class="lbl"><span>Scroll glide</span><span style="color:#5b5bf7">Smooth</span></div><div class="track"></div></div>
+  </div></div></div>
+<img class="appicon" src="mousey-icon.png">
+</body></html>

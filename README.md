@@ -13,12 +13,15 @@ npm run dev
 
 ## Edit content
 
-All text (projects, skills, certifications, contact details) lives in `src/data.js`.
+All text lives in `src/data.js`: your profile, the project list, skills, and education.
 
-Optional files in `public/`:
-
-- `profile.jpg` — your photo for the About section (a monogram is shown if it's missing)
-- `KurtTristanDelaRosa.pdf` — your résumé for the "Download résumé" links
+- **Projects:** each entry in `projects` has a `category` (`web`, `mac`, `game`, `design`), which
+  drives the filter pills and the coloured badge. `featured: true` gives it a wide card on the
+  home page. `url` adds a "Live ↗" button.
+- **Covers:** put a screenshot in `public/projects/` and point the project's `cover` at it
+  (16:10 landscape, around 1440×900). Projects without one show artwork drawn in code
+  (`src/components/Cover.jsx`).
+- `public/profile.jpg` is your photo, and `public/KurtTristanDelaRosa.pdf` is your résumé.
 
 ## Deploy to Vercel
 

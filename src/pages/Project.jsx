@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import Reveal from '../components/Reveal.jsx'
-import FogScene from '../components/FogScene.jsx'
+import Cover from '../components/Cover.jsx'
 import useTitle from '../components/useTitle.js'
 import { PageHeader, Tags, Arrow } from '../components/Sections.jsx'
 import NotFound from './NotFound.jsx'
@@ -18,8 +18,9 @@ export default function Project() {
 
   const meta = [
     { label: 'Type', value: p.kind },
+    { label: 'Category', value: p.badge },
     { label: 'Platform', value: p.platform },
-    p.date && { label: 'Completed', value: p.date },
+    (p.date || p.year) && { label: p.date ? 'Completed' : 'Year', value: p.date || p.year },
   ].filter(Boolean)
 
   return (
@@ -29,11 +30,14 @@ export default function Project() {
       </PageHeader>
 
       <div className="container page-body">
-        {p.id === 'fogbound' && (
-          <Reveal className="case-banner feature" aria-hidden="true">
-            <FogScene fit="slice" />
-          </Reveal>
-        )}
+        <Reveal className="case-hero">
+          <Cover project={p} className="case-cover" />
+          {p.url && (
+            <a className="btn btn--solid case-live" href={p.url} target="_blank" rel="noreferrer">
+              Visit live site ↗
+            </a>
+          )}
+        </Reveal>
 
         <Reveal as="dl" className="case-meta">
           {meta.map((m) => (

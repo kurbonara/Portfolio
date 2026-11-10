@@ -1,0 +1,56 @@
+<html><head><link rel="stylesheet" href="kit.css"><style>
+body { --bg:#0b1626; --c1:#1e3a5f; --c2:#3b4f7a; --c3:#d9a441; --dot: rgba(255,214,140,.14); }
+.win { left: 130px; top: 110px; width: 1180px; height: 740px; }
+.scene { position: relative; height: calc(100% - 46px); background: linear-gradient(180deg,#1a3147 0%,#0f2133 55%,#0a1622 100%); overflow: hidden; }
+.scene svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.scene__isle { fill: #08121c; } .scene__isle--far { fill: #13263a; } .scene__sea { fill: #081420; } .scene__lamp { fill: #ffe2a8; }
+.scene__tower-band { fill: #1a2d40; } .scene__tower-window { fill: #ffd68c; opacity: .55; } .scene__glints rect { fill: #ffd68c; opacity: .35; }
+.fog { position: absolute; left: -20%; width: 140%; border-radius: 50%; background: radial-gradient(closest-side, rgba(214,226,236,.22), rgba(214,226,236,0)); filter: blur(8px); }
+.fog--1 { bottom: 18%; height: 34%; } .fog--2 { bottom: 4%; height: 26%; opacity: .8; } .fog--3 { bottom: 34%; height: 22%; opacity: .5; }
+.quest { position: absolute; left: 34px; top: 30px; padding: 14px 18px; border-radius: 14px; background: rgba(8,18,28,.55); border: 1px solid rgba(255,214,140,.35); color: #f1e6cf; backdrop-filter: blur(10px); }
+.quest b { display: block; font-size: 13px; letter-spacing: .12em; color: #ffd68c; } .quest span { font-size: 19px; }
+</style></head><body><div class="mesh"></div><div class="dots"></div>
+<div class="win win--dark"><div class="bar"><i></i><i></i><i></i><span class="title">Fogbound</span></div>
+<div class="scene"><svg viewBox="0 0 1200 400" preserveAspectRatio="xMaxYMid slice">
+        <defs>
+          <linearGradient id="beam-r" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0" stop-color="#ffd68c" stop-opacity="0.55" />
+            <stop offset="1" stop-color="#ffd68c" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="beam-l" x1="1" x2="0" y1="0" y2="0">
+            <stop offset="0" stop-color="#ffd68c" stop-opacity="0.55" />
+            <stop offset="1" stop-color="#ffd68c" stop-opacity="0" />
+          </linearGradient>
+          <radialGradient id="lamp-glow">
+            <stop offset="0" stop-color="#ffe2a8" stop-opacity="0.9" />
+            <stop offset="1" stop-color="#ffe2a8" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <g class="scene__beam">
+          <polygon points="901,124 1400,40 1400,208" fill="url(#beam-r)" />
+          <polygon points="901,124 402,40 402,208" fill="url(#beam-l)" />
+        </g>
+        <path class="scene__isle scene__isle--far" d="M0 300 L0 268 Q60 240 140 262 Q200 250 260 276 L300 300 Z" />
+        <path class="scene__isle scene__isle--far" d="M470 300 Q520 284 570 289 Q600 292 625 300 Z" />
+        <path class="scene__isle" d="M740 300 Q800 266 860 261 Q900 252 960 257 Q1030 265 1090 300 Z" />
+        
+        <polygon class="scene__isle" points="878,262 924,262 914,148 888,148" />
+        <polygon class="scene__tower-band" points="883,212 919,212 917,192 885,192" />
+        <rect class="scene__tower-window" x="897" y="168" width="8" height="12" rx="4" />
+        <rect class="scene__isle" x="880" y="141" width="42" height="7" rx="1" />
+        <rect class="scene__isle" x="886" y="137" width="30" height="4" />
+        <rect class="scene__isle" x="887" y="111" width="28" height="26" />
+        <rect class="scene__lamp" x="891" y="114" width="20" height="20" />
+        <rect class="scene__isle" x="900" y="114" width="2" height="20" />
+        <polygon class="scene__isle" points="883,111 901,92 919,111" />
+        <rect class="scene__isle" x="900" y="84" width="2" height="9" />
+        <circle cx="901" cy="124" r="56" fill="url(#lamp-glow)" />
+        <rect class="scene__sea" x="0" y="300" width="1200" height="100" />
+        <g class="scene__glints">
+          <rect x="888" y="312" width="26" height="1.5" />
+          <rect x="880" y="326" width="42" height="1.5" />
+          <rect x="892" y="342" width="18" height="1.5" />
+        </g>
+      </svg><div class="fog fog--1"></div><div class="fog fog--2"></div><div class="fog fog--3"></div>
+<div class="quest"><b>NEW DESTINATION</b><span>Search the houses of Harbor Village.</span></div></div></div>
+</body></html>

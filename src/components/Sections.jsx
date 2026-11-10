@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from './Reveal.jsx'
-import FogScene from './FogScene.jsx'
-import { profile, featured, projects, skills, certifications, education, awards, interests } from '../data.js'
+import Cover from './Cover.jsx'
+import { profile, projects, categories, skills, certifications, education, awards, interests } from '../data.js'
 
 export function Arrow() {
   return <span aria-hidden="true">→</span>
@@ -84,71 +84,68 @@ export function Facts() {
   )
 }
 
-export function Hero() {
+// Copies the email address and briefly says so; falls back to opening the mail app.
+export function CopyEmail({ className = 'btn btn--solid' }) {
+  const [copied, setCopied] = useState(false)
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1800)
+    } catch {
+      window.location.href = `mailto:${profile.email}`
+    }
+  }
   return (
-    <section className="hero container" id="top">
-      <div className="hero__text">
-        <Reveal>
-          <span className="status">
-            <span className="status__dot" aria-hidden="true" />
-            {profile.status}
-          </span>
-        </Reveal>
-        <Reveal as="h1" className="hero__title" delay={60}>
-          {profile.name}
-        </Reveal>
-        <Reveal as="p" className="hero__role" delay={120}>
-          {profile.role}
-        </Reveal>
-        <Reveal as="p" className="hero__lede" delay={180}>
-          I build web and mobile interfaces in React, games in Unity and C#, and visuals in Photoshop, Illustrator,
-          Premiere Pro, and After Effects.
-        </Reveal>
-        <Reveal className="hero__actions" delay={240}>
-          <Link className="btn btn--solid" to="/projects">
-            View my work
-          </Link>
-          <Link className="btn btn--outline" to="/contact">
-            Get in touch
-          </Link>
-        </Reveal>
-      </div>
-
-      <Reveal className="portrait" delay={150}>
-        <Portrait />
-      </Reveal>
-
-      {/* Its own row, so the photo centers on the name and buttons, not on this. */}
-      <Reveal className="hero__facts-row" delay={300}>
-        <Facts />
-      </Reveal>
-    </section>
+    <button type="button" className={`${className} copy-email ${copied ? 'is-copied' : ''}`} onClick={copy}>
+      {copied ? 'Copied ✓' : 'Copy my email'}
+    </button>
   )
 }
 
-export function FeaturedCard() {
+// The words in the intro double as filters for the project grid below.
+const INTRO_WORDS = { web: 'web', mac: 'Mac', game: 'game' }
+
+export function Hero({ onPick, onPreview }) {
+  // Dots near the pointer light up (see .intro-wrap in the CSS).
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
+    e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
+  }
+  const word = (id) => (
+    <button
+      type="button"
+      className={`intro__word intro__word--${id}`}
+      onClick={() => onPick(id)}
+      onPointerEnter={() => onPreview(id)}
+      onPointerLeave={() => onPreview(null)}
+      onFocus={() => onPreview(id)}
+      onBlur={() => onPreview(null)}
+    >
+      {INTRO_WORDS[id]}
+    </button>
+  )
   return (
-    <Reveal className="container">
-      <Link to={`/projects/${featured.id}`} className="feature">
-        <FogScene />
-        <div className="feature__content">
-          <p className="feature__eyebrow">Featured game</p>
-          <h2 className="feature__title">{featured.title}</h2>
-          <p className="feature__tagline">{featured.tagline}</p>
-          <ul className="feature__stats">
-            {featured.stats.map((s) => (
-              <li key={s.label}>
-                <strong>{s.value}</strong>
-                <span>{s.label}</span>
-              </li>
-            ))}
-          </ul>
-          <span className="feature__cta">
-            View project <Arrow />
-          </span>
-        </div>
-      </Link>
-    </Reveal>
+    <section className="intro-wrap" id="top" onPointerMove={onMove}>
+      <div className="container intro">
+        <Reveal as="h1" className="intro__title">
+          Hi, I'm{' '}
+          <img className="intro__face" src={profile.photo} alt="" width="64" height="64" />
+          Kurt. I build apps for the {word('web')}, the {word('mac')}, and the occasional {word('game')}.
+        </Reveal>
+        <Reveal as="p" className="intro__sub" delay={120}>
+          <span className="status__dot" aria-hidden="true" />
+          BSIT student at Bulacan State University · {profile.status.toLowerCase()}
+        </Reveal>
+        <Reveal className="intro__actions" delay={200}>
+          <CopyEmail />
+          <a className="btn btn--outline" href={profile.resume} target="_blank" rel="noreferrer">
+            Résumé ↗
+          </a>
+        </Reveal>
+      </div>
+    </section>
   )
 }
 
@@ -162,43 +159,82 @@ export function Tags({ items }) {
   )
 }
 
-export function ProjectsAccordion() {
-  const [open, setOpen] = useState(projects[0].id)
-
+export function ProjectFilters({ active, onChange }) {
+  const options = [{ id: 'all', label: 'All' }, ...categories]
   return (
-    <div className="projects">
-      {projects.map((p, i) => {
-        const isOpen = open === p.id
+    <div className="filters" role="tablist" aria-label="Filter projects">
+      {options.map((o) => {
+        const count = o.id === 'all' ? projects.length : projects.filter((p) => p.category === o.id).length
         return (
-          <Reveal key={p.id} id={p.id} className={`project ${isOpen ? 'is-open' : ''}`} delay={i * 80}>
-            <button className="project__head" onClick={() => setOpen(isOpen ? null : p.id)} aria-expanded={isOpen}>
-              <span className="project__index">0{i + 1}</span>
-              <span className="project__titles">
-                <span className="project__title">{p.title}</span>
-                <span className="project__subtitle">{p.subtitle}</span>
-              </span>
-              <span className="project__kind">
-                {p.kind}
-                <br />
-                <span className="muted">{p.platform}</span>
-              </span>
-              <span className="project__toggle" aria-hidden="true">
-                {isOpen ? '−' : '+'}
-              </span>
-            </button>
-            <div className="project__body">
-              <div className="project__body-inner">
-                <ul className="project__points">
-                  {p.points.map((pt) => (
-                    <li key={pt}>{pt}</li>
-                  ))}
-                </ul>
-                <Tags items={p.stack} />
-                <Link className="more-link project__more" to={`/projects/${p.id}`} tabIndex={isOpen ? 0 : -1}>
-                  View project <Arrow />
-                </Link>
-              </div>
-            </div>
+          <button
+            key={o.id}
+            type="button"
+            role="tab"
+            aria-selected={active === o.id}
+            className={`filters__pill ${active === o.id ? 'is-active' : ''}`}
+            onClick={() => onChange(o.id)}
+          >
+            {o.label}
+            <span className="filters__count">{count}</span>
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+// One project card. The whole card opens the project; the "Live" link opens the real site.
+export function ProjectCard({ project: p, wide, dim }) {
+  return (
+    <article className={`card ${wide ? 'card--wide' : ''} ${dim ? 'is-dim' : ''}`}>
+      <div className="card__media">
+        <Cover project={p} className="card__cover" />
+      </div>
+      <div className="card__body">
+        <div className="card__top">
+          <span className={`badge badge--${p.category}`}>{p.badge}</span>
+          {p.year && <span className="card__year">{p.year}</span>}
+        </div>
+        <h3 className="card__title">
+          <Link to={`/projects/${p.id}`} className="card__link">
+            {p.title}
+          </Link>
+        </h3>
+        <p className="card__tagline">{wide ? p.summary : p.tagline}</p>
+        {wide && (
+          <ul className="tags card__tags">
+            {p.stack.slice(0, 5).map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
+        )}
+        <div className="card__foot">
+          <span className="card__kind">{p.kind}</span>
+          {p.url && (
+            <a className="card__live" href={p.url} target="_blank" rel="noreferrer">
+              Live ↗
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
+  )
+}
+
+// Bento grid: featured projects span the full width when showing everything, and if the
+// rest leave an odd one out at the end, that one goes wide too so no row is half empty.
+export function ProjectGrid({ filter = 'all', preview = null }) {
+  const shown = filter === 'all' ? projects : projects.filter((p) => p.category === filter)
+  const isFeatured = (p) => p.featured && filter === 'all'
+  const regular = shown.filter((p) => !isFeatured(p))
+  const lastAlone = regular.length % 2 === 1 ? regular[regular.length - 1] : null
+  return (
+    <div className="bento">
+      {shown.map((p, i) => {
+        const wide = isFeatured(p) || p === lastAlone
+        return (
+          <Reveal key={p.id} className={wide ? 'bento__wide' : ''} delay={(i % 2) * 60}>
+            <ProjectCard project={p} wide={wide} dim={preview && p.category !== preview} />
           </Reveal>
         )
       })}
@@ -339,13 +375,20 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="container footer__inner">
-        <Link to="/" className="brand">
-          <span className="brand__mark">KD</span>
-          {profile.name}
-        </Link>
-        <span>Built with React + Vite</span>
-        <span>© {new Date().getFullYear()}</span>
+        <span>
+          Made by {profile.name} in {profile.city}, {new Date().getFullYear()}.
+        </span>
+        <span className="footer__links">
+          <a href={`mailto:${profile.email}`}>Email</a>
+          <a href={profile.resume} target="_blank" rel="noreferrer">
+            Résumé
+          </a>
+          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            Back to top ↑
+          </button>
+        </span>
       </div>
     </footer>
   )
 }
+

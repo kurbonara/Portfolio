@@ -1,0 +1,18 @@
+<html><head><link rel="stylesheet" href="kit.css"><style>
+body { --bg:#d97706; --c1:#fcd34d; --c2:#fb923c; --c3:#fef3c7; }
+.menubar { position: absolute; left: 0; right: 0; top: 0; height: 34px; background: rgba(255,255,255,.55); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: flex-end; gap: 22px; padding: 0 26px; font-size: 14px; font-weight: 600; color: #3b2a10; }
+.menubar .clip { width: 26px; height: 22px; border-radius: 6px; background: rgba(0,0,0,.12); display: grid; place-items: center; }
+.panel { position: absolute; right: 150px; top: 58px; width: 560px; height: 780px; border-radius: 18px; overflow: hidden; }
+.panel video { position: absolute; width: 1890px; left: -1218px; top: -64px; }
+.key { position: absolute; left: 150px; bottom: 170px; display: flex; gap: 12px; }
+.key span { width: 92px; height: 92px; border-radius: 20px; display: grid; place-items: center; font-size: 40px; font-weight: 700; color: #3b2a10; }
+.appicon { position: absolute; left: 140px; top: 120px; width: 170px; filter: drop-shadow(0 24px 30px rgba(120,40,0,.35)); transform: rotate(-8deg); }
+.hint { position: absolute; left: 160px; bottom: 130px; font-size: 18px; font-weight: 600; color: rgba(59,42,16,.75); }
+</style></head><body><div class="mesh"></div><div class="dots"></div>
+<div class="menubar"><span class="clip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b2a10" stroke-width="2.4"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/></svg></span><span>Tue Nov 3 9:41</span></div>
+<div class="panel win"><video id="v" muted playsinline src="raw/clipshelf.mp4"></video></div>
+<img class="appicon" src="clipshelf-icon.png">
+<div class="key"><span class="glass">⌃</span><span class="glass">⌘</span><span class="glass">V</span></div>
+<p class="hint">opens ClipShelf from any app</p>
+<script>const v=document.getElementById('v');v.addEventListener('loadedmetadata',()=>{v.currentTime=18});</script>
+</body></html>

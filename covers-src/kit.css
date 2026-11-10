@@ -1,0 +1,22 @@
+/* Shared look for every project cover: brand gradient + dot grid + one window style. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1440px; height: 900px; overflow: hidden; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; -webkit-font-smoothing: antialiased; position: relative; background: var(--bg); }
+.mesh { position: absolute; inset: 0; background:
+  radial-gradient(60% 70% at 15% 10%, var(--c1), transparent 70%),
+  radial-gradient(55% 65% at 90% 25%, var(--c2), transparent 70%),
+  radial-gradient(70% 70% at 60% 110%, var(--c3), transparent 70%), var(--bg); }
+.dots { position: absolute; inset: 0; background-image: radial-gradient(var(--dot, rgba(255,255,255,.28)) 1.3px, transparent 1.6px); background-size: 28px 28px; mask-image: linear-gradient(180deg, #000, transparent 85%); }
+.win { position: absolute; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 50px 100px -30px rgba(10,10,40,.45), 0 20px 40px -20px rgba(10,10,40,.3); }
+.win--dark { background: #111; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 50px 100px -30px rgba(0,0,0,.7); }
+.bar { height: 46px; display: flex; align-items: center; gap: 8px; padding: 0 18px; background: #f6f6f7; border-bottom: 1px solid rgba(0,0,0,.07); position: relative; }
+.win--dark .bar { background: #1c1c1f; border-color: rgba(255,255,255,.06); }
+.bar i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+.bar i:nth-child(1) { background: #ff5f57; } .bar i:nth-child(2) { background: #febc2e; } .bar i:nth-child(3) { background: #28c840; }
+.url { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); min-width: 360px; height: 28px; border-radius: 8px; background: #ececee; color: #555; font-size: 14px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 7px; }
+.win--dark .url { background: #2a2a2e; color: #aaa; }
+.title { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); font-size: 14px; font-weight: 600; color: #555; }
+.win--dark .title { color: #aaa; }
+.shot { display: block; width: 100%; }
+.glass { background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.8); backdrop-filter: blur(24px) saturate(160%); box-shadow: 0 30px 60px -24px rgba(10,10,40,.35); }
+.lock { width: 12px; height: 12px; }

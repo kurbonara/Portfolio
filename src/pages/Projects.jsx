@@ -1,37 +1,22 @@
-import { Link } from 'react-router-dom'
-import Reveal from '../components/Reveal.jsx'
+import { useSearchParams } from 'react-router-dom'
 import useTitle from '../components/useTitle.js'
-import { PageHeader, Tags, Arrow } from '../components/Sections.jsx'
-import { projects } from '../data.js'
+import { PageHeader, ProjectFilters, ProjectGrid } from '../components/Sections.jsx'
 
 export default function Projects() {
   useTitle('Projects')
+  const [params, setParams] = useSearchParams()
+  const filter = params.get('type') || 'all'
   return (
     <>
-      <PageHeader eyebrow="Selected work" title="Projects">
-        The problem behind each project, how it was solved, and the part I played.
+      <PageHeader eyebrow="Work" title="Things I've built">
+        Web apps, Mac apps, games, and design work. Open any of them for the problem behind it, how it was
+        solved, and the part I played.
       </PageHeader>
-
       <section className="container page-body">
-        <div className="work-grid">
-          {projects.map((p, i) => (
-            <Reveal key={p.id} delay={(i % 2) * 80}>
-              <Link to={`/projects/${p.id}`} className="surface work-card">
-                <div className="work-card__top">
-                  <span className="project__index">0{i + 1}</span>
-                  <span className="muted">{p.kind}</span>
-                </div>
-                <h2 className="work-card__title">{p.title}</h2>
-                <p className="work-card__subtitle">{p.subtitle}</p>
-                <p className="work-card__summary">{p.summary}</p>
-                <Tags items={p.stack.slice(0, 4)} />
-                <span className="more-link work-card__more">
-                  View project <Arrow />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
+        <div className="work__head">
+          <ProjectFilters active={filter} onChange={(id) => setParams(id === 'all' ? {} : { type: id }, { replace: true })} />
         </div>
+        <ProjectGrid filter={filter} />
       </section>
     </>
   )

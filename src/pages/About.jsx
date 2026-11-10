@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal.jsx'
 import useTitle from '../components/useTitle.js'
-import { PageHeader, Portrait, Facts, Interests, Tags } from '../components/Sections.jsx'
-import { profile, education, skills } from '../data.js'
+import { PageHeader, Portrait, Facts, Interests, SkillsTable, EducationAndAwards, CertList } from '../components/Sections.jsx'
+import { profile, education } from '../data.js'
 
+// Everything about the person: bio, skills, education, and interests.
 export default function About() {
   useTitle('About')
-  const creative = skills.find((s) => s.group === 'Creative & Design')
 
   return (
     <>
@@ -21,22 +21,15 @@ export default function About() {
 
         <div className="about-page__text">
           <Reveal>
-            <h2 className="case-section__title">How I work</h2>
-            <p className="about__objective">{profile.objective}</p>
+            {profile.about.map((para) => (
+              <p key={para} className="about__objective">
+                {para}
+              </p>
+            ))}
           </Reveal>
           <Reveal delay={60}>
             <Facts />
           </Reveal>
-          {creative && (
-            <Reveal className="case-section" delay={100}>
-              <h2 className="case-section__title">Beyond code</h2>
-              <p className="muted about-page__note">
-                I also design and edit: UI in Figma, graphics in Photoshop and Illustrator, and video and motion in
-                Premiere Pro and After Effects.
-              </p>
-              <Tags items={creative.items} />
-            </Reveal>
-          )}
           <Reveal className="hero__actions" delay={140}>
             <Link className="btn btn--solid" to="/projects">
               See my work
@@ -46,10 +39,24 @@ export default function About() {
             </Link>
           </Reveal>
         </div>
+      </section>
 
-        <div className="about-page__interests">
-          <Interests />
+      <section className="container about-block" id="skills">
+        <h2 className="about-block__title">Skills</h2>
+        <SkillsTable />
+      </section>
+
+      <section className="container about-block" id="education">
+        <h2 className="about-block__title">Education, honors & certifications</h2>
+        <div className="creds">
+          <EducationAndAwards />
+          <CertList />
         </div>
+      </section>
+
+      <section className="container about-block page-body" id="interests">
+        <h2 className="about-block__title">Things I'm into</h2>
+        <Interests />
       </section>
     </>
   )

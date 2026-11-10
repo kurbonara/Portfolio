@@ -5,8 +5,6 @@ import { Footer } from './components/Sections.jsx'
 import Home from './pages/Home.jsx'
 import Projects from './pages/Projects.jsx'
 import Project from './pages/Project.jsx'
-import Skills from './pages/Skills.jsx'
-import Education from './pages/Education.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
 import NotFound from './pages/NotFound.jsx'
@@ -40,13 +38,14 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:id" element={<Project />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/education" element={<Education />} />
+          {/* Skills and education now live on the About page. */}
+          <Route path="/skills" element={<Navigate to="/about#skills" replace />} />
+          <Route path="/education" element={<Navigate to="/about#education" replace />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/work" element={<Navigate to="/projects" replace />} />
           <Route path="/work/:id" element={<OldProjectRedirect />} />
-          <Route path="/credentials" element={<Navigate to="/education" replace />} />
+          <Route path="/credentials" element={<Navigate to="/about#education" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

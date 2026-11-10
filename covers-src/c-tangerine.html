@@ -1,0 +1,40 @@
+<html><head><link rel="stylesheet" href="kit.css"><style>
+body { --bg:#f2785c; --c1:#ffc27a; --c2:#f0648a; --c3:#b38cf3; }
+.win { left: 120px; top: 120px; width: 1000px; height: 720px; }
+.finder { display: grid; grid-template-columns: 200px 1fr; height: calc(100% - 46px); }
+.side { background: #f4f3f6; border-right: 1px solid rgba(0,0,0,.06); padding: 18px 14px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; color: #444; }
+.side b { font-size: 12px; color: #999; margin: 4px 8px; }
+.side span { padding: 8px 10px; border-radius: 8px; } .side span.on { background: rgba(0,0,0,.07); font-weight: 600; }
+.files { padding: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px 20px; align-content: start; }
+.f { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 14px; color: #444; }
+.doc { width: 78px; height: 98px; border-radius: 10px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 6px 14px -6px rgba(0,0,0,.25); position: relative; overflow: hidden; }
+.doc em { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font: 800 12px -apple-system,sans-serif; font-style: normal; }
+.doc.img::before { content: ''; position: absolute; inset: 0 0 30px; background: linear-gradient(160deg,var(--a),var(--b)); }
+.wheelwrap { position: absolute; right: 30px; top: 150px; width: 580px; height: 580px; }
+.wheel text { font: 700 19px -apple-system, BlinkMacSystemFont, sans-serif; fill: #6b2a3a; }
+.hub { position: absolute; left: 50%; top: 50%; width: 150px; height: 150px; transform: translate(-50%,-50%); border-radius: 50%; display: grid; place-items: center; }
+.appicon { position: absolute; left: 70px; bottom: 50px; width: 140px; filter: drop-shadow(0 24px 30px rgba(90,20,40,.4)); transform: rotate(-8deg); }
+</style></head><body><div class="mesh"></div><div class="dots"></div>
+<div class="win"><div class="bar"><i></i><i></i><i></i><span class="title">Downloads</span></div>
+ <div class="finder"><div class="side"><b>Favorites</b><span>Desktop</span><span class="on">Downloads</span><span>Documents</span><span>Pictures</span></div>
+  <div class="files">
+   <div class="f"><div class="doc img" style="--a:#ffd29a;--b:#7c5cff"><em style="color:#f0648a">HEIC</em></div>beach.heic</div>
+   <div class="f"><div class="doc"><em style="color:#e5383b">PDF</em></div>report.pdf</div>
+   <div class="f"><div class="doc img" style="--a:#bae6fd;--b:#2563eb"><em style="color:#2563eb">PNG</em></div>screen.png</div>
+   <div class="f"><div class="doc"><em style="color:#2b579a">DOCX</em></div>thesis.docx</div>
+   <div class="f"><div class="doc"><em style="color:#7c3aed">MOV</em></div>clip.mov</div>
+   <div class="f"><div class="doc"><em style="color:#0f766e">WAV</em></div>voice.wav</div>
+  </div></div></div>
+<div class="wheelwrap"><svg class="wheel" viewBox="0 0 620 620"><defs><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#5a1a3a" flood-opacity=".3"/></filter></defs><g filter="url(#sh)"></g></svg>
+ <div class="hub glass"><div class="doc img" style="--a:#ffd29a;--b:#7c5cff"><em style="color:#f0648a">HEIC</em></div></div></div>
+<img class="appicon" src="tangerine-icon.png">
+<script>
+const labels=['JPG','PNG','PDF','TIFF','Resize','Rotate','Compress','Zip'];
+const g=document.querySelector('.wheel g'),cx=310,cy=310,R=300,r=100,n=8,gap=.035;
+labels.forEach((t,i)=>{const a0=-Math.PI/2+i*2*Math.PI/n+gap,a1=-Math.PI/2+(i+1)*2*Math.PI/n-gap,p=(rad,a)=>[cx+rad*Math.cos(a),cy+rad*Math.sin(a)];
+const [x0,y0]=p(R,a0),[x1,y1]=p(R,a1),[x2,y2]=p(r,a1),[x3,y3]=p(r,a0),hot=i===1;
+const e=document.createElementNS('http://www.w3.org/2000/svg','path');e.setAttribute('d',`M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r} ${r} 0 0 0 ${x3} ${y3}Z`);
+e.setAttribute('fill',hot?'#ff7a59':'rgba(255,255,255,.78)');e.setAttribute('stroke','rgba(255,255,255,.95)');e.setAttribute('stroke-width','1.5');g.appendChild(e);
+const [tx,ty]=p((R+r)/2,(a0+a1)/2),tt=document.createElementNS('http://www.w3.org/2000/svg','text');tt.setAttribute('x',tx);tt.setAttribute('y',ty+7);tt.setAttribute('text-anchor','middle');tt.textContent=t;if(hot)tt.setAttribute('style','fill:#fff');g.appendChild(tt);});
+</script>
+</body></html>
