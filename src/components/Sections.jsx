@@ -109,12 +109,6 @@ export function CopyEmail({ className = 'btn btn--solid' }) {
 const INTRO_WORDS = { web: 'web', mac: 'Mac', game: 'game' }
 
 export function Hero({ onPick, onPreview }) {
-  // Dots near the pointer light up (see .intro-wrap in the CSS).
-  const onMove = (e) => {
-    const r = e.currentTarget.getBoundingClientRect()
-    e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
-    e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
-  }
   const word = (id) => (
     <button
       type="button"
@@ -129,7 +123,7 @@ export function Hero({ onPick, onPreview }) {
     </button>
   )
   return (
-    <section className="intro-wrap" id="top" onPointerMove={onMove}>
+    <section className="intro-wrap" id="top">
       <IconField />
       <div className="container intro">
         <Reveal className="intro__me">
