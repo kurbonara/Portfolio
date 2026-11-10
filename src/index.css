@@ -1761,7 +1761,7 @@ h3 {
   border-radius: 28px;
   background: linear-gradient(135deg, var(--pc), color-mix(in srgb, var(--pc) 55%, black));
   color: #fff;
-  box-shadow: 0 40px 80px -40px var(--pc);
+  box-shadow: 0 24px 48px -32px var(--shadow);
   transition: transform 0.35s ease;
 }
 .pj-next__hand {
@@ -1806,7 +1806,7 @@ h3 {
 .pj-next__cover {
   aspect-ratio: 16 / 10;
   border-radius: 16px;
-  box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 12px 28px -16px rgba(0, 0, 0, 0.45);
 }
 .pj-prev {
   display: inline-block;
