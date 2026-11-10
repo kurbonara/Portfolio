@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
+import { play } from '../sound.js'
 
 const STORAGE_KEY = 'theme'
 
@@ -65,6 +66,7 @@ export default function ThemeToggle() {
   const toggle = (e) => {
     const next = theme === 'dark' ? 'light' : 'dark'
     save(next)
+    play(next)
 
     const update = () => {
       applyTheme(next)

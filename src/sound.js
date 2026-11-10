@@ -3,6 +3,7 @@
 
 const KEY = 'sound'
 let ctx = null
+let out = null // master chain: everything plays through a limiter so louder sounds never clip
 let muted = true
 try {
   muted = localStorage.getItem(KEY) !== 'on'
@@ -16,6 +17,15 @@ function audio() {
     const AC = window.AudioContext || window.webkitAudioContext
     if (!AC) return null
     ctx = new AC()
+    const limiter = ctx.createDynamicsCompressor()
+    limiter.threshold.value = -6
+    limiter.knee.value = 4
+    limiter.ratio.value = 12
+    limiter.attack.value = 0.002
+    limiter.release.value = 0.12
+    out = ctx.createGain()
+    out.gain.value = 1
+    out.connect(limiter).connect(ctx.destination)
   }
   if (ctx.state === 'suspended') ctx.resume()
   return ctx
@@ -34,21 +44,32 @@ function tone(freq, { start = 0, length = 0.08, volume = 0.08, type = 'sine', sl
   gain.gain.setValueAtTime(0.0001, t)
   gain.gain.exponentialRampToValueAtTime(volume, t + 0.005)
   gain.gain.exponentialRampToValueAtTime(0.0001, t + length)
-  osc.connect(gain).connect(ac.destination)
+  osc.connect(gain).connect(out)
   osc.start(t)
   osc.stop(t + length + 0.02)
 }
 
 const sounds = {
-  hover: () => tone(1800, { length: 0.03, volume: 0.025, type: 'triangle' }),
-  click: () => tone(520, { length: 0.09, volume: 0.07, slideTo: 260 }),
+  hover: () => tone(1800, { length: 0.035, volume: 0.1, type: 'triangle' }),
+  click: () => tone(560, { length: 0.1, volume: 0.28, type: 'triangle', slideTo: 280 }),
   on: () => {
-    tone(660, { length: 0.12, volume: 0.07 })
-    tone(990, { start: 0.09, length: 0.16, volume: 0.07 })
+    tone(660, { length: 0.14, volume: 0.25, type: 'triangle' })
+    tone(990, { start: 0.09, length: 0.2, volume: 0.25, type: 'triangle' })
   },
   off: () => {
-    tone(880, { length: 0.12, volume: 0.06 })
-    tone(520, { start: 0.09, length: 0.18, volume: 0.06 })
+    tone(880, { length: 0.14, volume: 0.22, type: 'triangle' })
+    tone(520, { start: 0.09, length: 0.22, volume: 0.22, type: 'triangle' })
+  },
+  // Night: a soft falling sweep with a low note underneath.
+  dark: () => {
+    tone(880, { length: 0.35, volume: 0.18, slideTo: 330 })
+    tone(220, { start: 0.08, length: 0.4, volume: 0.22, type: 'triangle' })
+  },
+  // Day: a bright rising sparkle.
+  light: () => {
+    tone(784, { length: 0.12, volume: 0.2, type: 'triangle' })
+    tone(1175, { start: 0.08, length: 0.14, volume: 0.2, type: 'triangle' })
+    tone(1568, { start: 0.16, length: 0.22, volume: 0.16 })
   },
 }
 
@@ -60,7 +81,7 @@ export function pluck(step) {
   const s = Math.max(0, Math.round(step))
   const semis = 12 * Math.floor(s / 5) + PENTATONIC[s % 5]
   const freq = 392 * 2 ** (semis / 12) // from G4 upward
-  tone(freq, { length: 0.16, volume: 0.035, type: 'triangle' })
+  tone(freq, { length: 0.18, volume: 0.12, type: 'triangle' })
 }
 
 export function play(name) {
@@ -102,8 +123,8 @@ export function installUiSounds() {
   }
   const onDown = (e) => {
     const el = e.target.closest?.(INTERACTIVE)
-    // The speaker button plays its own on/off sound.
-    if (el && !el.closest('.sound-toggle')) play('click')
+    // The speaker and day/night buttons play their own sounds.
+    if (el && !el.closest('.theme-toggle')) play('click')
   }
   document.addEventListener('pointerover', onOver)
   document.addEventListener('pointerdown', onDown)
