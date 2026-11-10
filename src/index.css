@@ -2711,3 +2711,10 @@ h3 {
     align-self: stretch;
   }
 }
+
+/* The graph editor is a toy, not text: never highlight it while dragging. */
+.ae {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}

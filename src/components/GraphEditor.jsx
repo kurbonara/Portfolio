@@ -80,6 +80,8 @@ export default function GraphEditor() {
     return [Math.min(1, Math.max(0, cx)), Math.min(1.5, Math.max(-0.45, cy))]
   }
   const onDown = (which) => (e) => {
+    // Stop the browser from starting a text/drag selection while a handle is held.
+    e.preventDefault()
     dragging.current = which
     e.currentTarget.setPointerCapture(e.pointerId)
   }
