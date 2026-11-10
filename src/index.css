@@ -2639,12 +2639,12 @@ h3 {
 }
 .icon-field__item {
   --t: 0;
-  /* 20px at rest: the logo is drawn at 36px and scaled down (see IconField.jsx). */
-  --s: 0.556;
+  /* 16px at rest: the logo is drawn at 28px and scaled down (see IconField.jsx). */
+  --s: 0.571;
   position: absolute;
-  width: 36px;
-  height: 36px;
-  margin: -18px 0 0 -18px;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
   transform: scale(var(--s));
   transition: transform 0.25s ease-out;
 }

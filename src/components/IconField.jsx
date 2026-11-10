@@ -40,11 +40,11 @@ const ICONS = [
 // Brand colours that are black or white would vanish in one theme, so those use the text colour.
 const fill = (hex) => (/^(000000|FFFFFF|181717|191919|092E20)$/i.test(hex) ? 'var(--ink)' : `#${hex}`)
 
-const CELL = 64
+const CELL = 48
 const CLEAR = 14 // px of side padding kept around the intro's text, avatar, and buttons
-const ICON_HALF = 10 // half a resting logo's size
+const ICON_HALF = 8 // half a resting logo's size
 const REACH = 170 // px around the pointer that reacts
-const GROW = 0.8 // extra scale at the pointer (1.8×)
+const GROW = 0.75 // extra scale at the pointer (1.75×: 16px → 28px)
 
 export default function IconField() {
   const ref = useRef(null)
@@ -156,7 +156,7 @@ export default function IconField() {
           }}
           style={{ left: c.x, top: c.y, '--wave': c.wave, opacity: c.fade }}
         >
-          <svg viewBox="0 0 24 24" width="36" height="36">
+          <svg viewBox="0 0 24 24" width="28" height="28">
             <path className="icon-field__grey" d={c.icon.path} />
             <path className="icon-field__color" d={c.icon.path} fill={fill(c.icon.hex)} />
           </svg>
