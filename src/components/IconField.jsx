@@ -78,12 +78,16 @@ export default function IconField() {
         blocked.some(
           (k) => x + ICON_HALF > k.l && x - ICON_HALF < k.r && y + ICON_HALF > k.t && y - ICON_HALF < k.b
         )
+      // Straight columns, shifted so one column sits in the middle of the margin left of
+      // the text (a staggered grid left every other row of that narrow strip empty).
+      const textLeft = Math.min(...blocked.map((k) => k.l + CLEAR))
+      const x0 = Number.isFinite(textLeft) ? ((textLeft / 2) % CELL + CELL) % CELL : CELL / 2
       const cols = Math.ceil(box.width / CELL) + 1
       const rows = Math.ceil(box.height / CELL) + 1
       const next = []
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const x = c * CELL + (r % 2 ? CELL / 2 : 0) + CELL / 2
+          const x = x0 + c * CELL
           const y = r * CELL + CELL / 2
           if (isBlocked(x, y)) continue
           next.push({ icon: ICONS[(r * 7 + c * 3) % ICONS.length], x, y, wave: c + r })
