@@ -31,10 +31,24 @@ function audio() {
   return ctx
 }
 
+// Each theme has its own sound palette. Light: crisp and bright, as written below.
+// Dark: the same sounds a perfect fourth lower, rounder (sine), a little longer, and
+// low-passed so they feel soft and night-time.
+const isDark = () => document.documentElement.dataset.theme === 'dark'
+
 // One short note: an oscillator with a quick attack and exponential fade.
-function tone(freq, { start = 0, length = 0.08, volume = 0.08, type = 'sine', slideTo } = {}) {
+// `raw` skips the theme palette (used by the day/night switch sounds themselves).
+function tone(freq, { start = 0, length = 0.08, volume = 0.08, type = 'sine', slideTo, raw = false } = {}) {
   const ac = audio()
   if (!ac) return
+  const night = !raw && isDark()
+  if (night) {
+    freq *= 0.75
+    if (slideTo) slideTo *= 0.75
+    length *= 1.35
+    volume *= 1.25 // sine and the filter are quieter, so make up for it
+    type = 'sine'
+  }
   const t = ac.currentTime + start
   const osc = ac.createOscillator()
   const gain = ac.createGain()
@@ -42,9 +56,16 @@ function tone(freq, { start = 0, length = 0.08, volume = 0.08, type = 'sine', sl
   osc.frequency.setValueAtTime(freq, t)
   if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, t + length)
   gain.gain.setValueAtTime(0.0001, t)
-  gain.gain.exponentialRampToValueAtTime(volume, t + 0.005)
+  gain.gain.exponentialRampToValueAtTime(volume, t + (night ? 0.012 : 0.005))
   gain.gain.exponentialRampToValueAtTime(0.0001, t + length)
-  osc.connect(gain).connect(out)
+  if (night) {
+    const lp = ac.createBiquadFilter()
+    lp.type = 'lowpass'
+    lp.frequency.value = 1600
+    osc.connect(lp).connect(gain).connect(out)
+  } else {
+    osc.connect(gain).connect(out)
+  }
   osc.start(t)
   osc.stop(t + length + 0.02)
 }
@@ -62,14 +83,14 @@ const sounds = {
   },
   // Night: a soft falling sweep with a low note underneath.
   dark: () => {
-    tone(880, { length: 0.35, volume: 0.18, slideTo: 330 })
-    tone(220, { start: 0.08, length: 0.4, volume: 0.22, type: 'triangle' })
+    tone(880, { length: 0.35, volume: 0.18, slideTo: 330, raw: true })
+    tone(220, { start: 0.08, length: 0.4, volume: 0.22, type: 'triangle', raw: true })
   },
   // Day: a bright rising sparkle.
   light: () => {
-    tone(784, { length: 0.12, volume: 0.2, type: 'triangle' })
-    tone(1175, { start: 0.08, length: 0.14, volume: 0.2, type: 'triangle' })
-    tone(1568, { start: 0.16, length: 0.22, volume: 0.16 })
+    tone(784, { length: 0.12, volume: 0.2, type: 'triangle', raw: true })
+    tone(1175, { start: 0.08, length: 0.14, volume: 0.2, type: 'triangle', raw: true })
+    tone(1568, { start: 0.16, length: 0.22, volume: 0.16, raw: true })
   },
 }
 
