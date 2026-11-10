@@ -90,7 +90,10 @@ export default function IconField() {
           const x = x0 + c * CELL
           const y = r * CELL + CELL / 2
           if (isBlocked(x, y)) continue
-          next.push({ icon: ICONS[(r * 7 + c * 3) % ICONS.length], x, y, wave: c + r })
+          // Fade out toward the bottom of the intro (fully visible down to 45%, gone by 95%).
+          const fade = Math.min(1, Math.max(0, (box.height * 0.95 - y) / (box.height * 0.5)))
+          if (fade <= 0) continue
+          next.push({ icon: ICONS[(r * 7 + c * 3) % ICONS.length], x, y, wave: c + r, fade })
         }
       }
       setCells(next)
@@ -151,7 +154,7 @@ export default function IconField() {
               el._y = c.y
             }
           }}
-          style={{ left: c.x, top: c.y, '--wave': c.wave }}
+          style={{ left: c.x, top: c.y, '--wave': c.wave, opacity: c.fade }}
         >
           <svg viewBox="0 0 24 24" width="36" height="36">
             <path className="icon-field__grey" d={c.icon.path} />

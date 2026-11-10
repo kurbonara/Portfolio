@@ -1130,6 +1130,8 @@ a:hover .more-link span {
   text-decoration-thickness: 0.06em;
   text-underline-offset: 0.14em;
   text-decoration-color: color-mix(in srgb, var(--c) 35%, transparent);
+  /* Run the underline straight under descenders (the "g") instead of breaking around them. */
+  text-decoration-skip-ink: none;
   transition: text-decoration-color 0.2s ease;
 }
 .intro__word:hover,
@@ -2629,13 +2631,11 @@ h3 {
   overflow: hidden;
   pointer-events: none;
 }
-/* Fade the logos out toward the bottom with a plain overlay (a CSS mask here made
-   browsers redraw the text above it at lower quality). */
-.icon-field::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(transparent 45%, var(--bg) 95%);
+/* Logos fade toward the bottom via their own opacity (set in IconField.jsx), not a
+   mask or overlay: both made Safari dim or blur the text above them. */
+.intro {
+  position: relative;
+  z-index: 1;
 }
 .icon-field__item {
   --t: 0;
