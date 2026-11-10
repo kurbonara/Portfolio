@@ -19,6 +19,12 @@ export const profile = {
   phone: '+63-907-010-0786',
   phoneHref: 'tel:+639070100786',
   email: 'kurttristan.r.delarosa@gmail.com',
+  socials: [
+    { id: 'linkedin', label: 'LinkedIn', url: 'https://www.linkedin.com/in/kurt-tristan-dela-rosa-6b67b2297' },
+    { id: 'github', label: 'GitHub', url: 'https://github.com/kurbonara' },
+    { id: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/kurbonara' },
+    { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/kurbonara/' },
+  ],
   // Put your résumé PDF in /public with this file name to enable the download link.
   resume: '/KurtTristanDelaRosa.pdf',
   // Put a square photo in /public with this file name to show it in the About section.
@@ -324,14 +330,18 @@ export const skills = [
   },
 ]
 
+// Newest first. Matches LinkedIn's "Licenses & certifications".
 export const certifications = [
-  { name: 'Information Technology Specialist in Python', date: 'Oct 2026' },
-  { name: 'Gemini Certified University Student', date: 'Sep 2026' },
-  { name: 'Salesforce Supported Virtual Internship Program', date: 'Jan 2026' },
-  { name: 'Agentblazer Champion Workshop', date: 'Sep 2025' },
-  { name: 'Network Addressing and Basic Troubleshooting', date: 'Mar 2025' },
-  { name: 'Introduction to HTML', date: 'Apr 2023' },
-  { name: 'Blockchain 101', date: 'Apr 2023' },
+  { name: 'Google Certified Educator Level 2', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029' },
+  { name: 'Google Certified Educator Level 1', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029' },
+  { name: 'Gemini Certified Educator', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029' },
+  { name: 'Information Technology Specialist in Python', issuer: 'Pearson', date: 'Oct 2026', expires: 'Oct 2031' },
+  { name: 'Gemini Certified University Student', issuer: 'Google', date: 'Sep 2026' },
+  { name: 'Supported Virtual Internship Program', issuer: 'Salesforce', date: 'Jan 2026', expires: 'Jan 2031' },
+  { name: 'Agentblazer Champion Workshop', issuer: 'Salesforce', date: 'Sep 2025' },
+  { name: 'Network Addressing and Basic Troubleshooting', issuer: 'Cisco', date: 'Mar 2025', expires: 'Mar 2030' },
+  { name: 'Introduction to HTML', issuer: 'DICT', date: 'Apr 2023' },
+  { name: 'Blockchain 101', issuer: 'DICT', date: 'Apr 2023' },
 ]
 
 export const education = {

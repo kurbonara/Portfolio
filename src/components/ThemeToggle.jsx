@@ -53,7 +53,13 @@ export default function ThemeToggle() {
       setTheme(next)
     }
     mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
+    // Keep every toggle on the page (sidebar and top bar) showing the right icon.
+    const mo = new MutationObserver(() => setTheme(document.documentElement.dataset.theme || 'light'))
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => {
+      mq.removeEventListener('change', onChange)
+      mo.disconnect()
+    }
   }, [])
 
   const toggle = (e) => {

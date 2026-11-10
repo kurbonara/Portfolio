@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from './Reveal.jsx'
 import Cover from './Cover.jsx'
+import IconField from './IconField.jsx'
+import { Socials } from './Nav.jsx'
 import { profile, projects, categories, skills, certifications, education, awards, interests } from '../data.js'
 
 export function Arrow() {
@@ -128,6 +130,7 @@ export function Hero({ onPick, onPreview }) {
   )
   return (
     <section className="intro-wrap" id="top" onPointerMove={onMove}>
+      <IconField />
       <div className="container intro">
         <Reveal className="intro__me">
           <img className="intro__face" src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
@@ -293,7 +296,16 @@ export function CertList() {
       <ul>
         {certifications.map((c) => (
           <li key={c.name}>
-            <span>{c.name}</span>
+            <span>
+              {c.name}
+              {(c.issuer || c.id) && (
+                <span className="cert-list__meta">
+                  {c.issuer}
+                  {c.issuer && c.id && ' · '}
+                  {c.id && `ID ${c.id}`}
+                </span>
+              )}
+            </span>
             <span className="cert-list__date">{c.date}</span>
           </li>
         ))}
@@ -369,6 +381,10 @@ export function ContactBlock() {
           <p className="contact-card__label">Based in</p>
           <span>{profile.location}</span>
         </div>
+        <div className="surface contact-card">
+          <p className="contact-card__label">Elsewhere</p>
+          <Socials className="socials--big" />
+        </div>
         <a className="btn btn--outline" href={profile.resume} download>
           Download résumé
         </a>
@@ -388,6 +404,7 @@ export function Footer() {
           Made by {profile.name} in {profile.city}, {new Date().getFullYear()}.
         </span>
         <span className="footer__links">
+          <Socials />
           <a href={`mailto:${profile.email}`}>Email</a>
           <a href={profile.resume} target="_blank" rel="noreferrer">
             Résumé

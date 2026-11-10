@@ -8,7 +8,7 @@ export default function Projects() {
   const filter = params.get('type') || 'all'
   return (
     <>
-      <PageHeader eyebrow="Work" title="Things I've built">
+      <PageHeader eyebrow="Projects" title="Things I've built">
         Web apps, Mac apps, games, and design work. Open any of them for the problem behind it, how it was
         solved, and the part I played.
       </PageHeader>

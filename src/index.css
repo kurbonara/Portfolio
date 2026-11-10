@@ -12,9 +12,11 @@
   --btn-hover: #2b2b2b;
   --btn-divider: rgba(252, 252, 252, 0.25);
   --shadow: rgba(20, 20, 20, 0.1);
-  /* One friendly, clean font for everything. */
-  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Type system: Geist for text, Geist Mono for small labels, serif italics for intros. */
+  --font-display: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif: 'Source Serif 4', Georgia, serif;
   --radius: 28px;
   --max: 1200px;
   --gutter: clamp(20px, 5vw, 56px);
@@ -327,7 +329,7 @@ html {
   display: grid;
   place-items: center;
   font-size: 96px;
-  font-weight: 700;
+  font-weight: 600;
   background: var(--ink);
   color: var(--bg);
 }
@@ -541,7 +543,7 @@ html {
 .section-title {
   font-size: clamp(32px, 3.6vw, 48px);
   line-height: 1.08;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
 }
 .section-lede {
@@ -639,7 +641,7 @@ html {
 }
 .cred-block__title {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 6px;
 }
 .cred-block__text {
@@ -706,7 +708,7 @@ html {
 }
 .contact__cards {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr auto;
+  grid-template-rows: 1fr 1fr 1fr 1fr auto;
   gap: 12px;
 }
 .contact-card {
@@ -862,7 +864,7 @@ a:hover .more-link span {
 .page-title {
   font-size: clamp(40px, 6vw, 72px);
   line-height: 1.02;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.025em;
   max-width: 900px;
 }
@@ -911,7 +913,7 @@ a:hover .more-link span {
 }
 .case-section__title {
   font-size: clamp(24px, 2.4vw, 30px);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
   margin-bottom: 20px;
 }
@@ -1085,23 +1087,6 @@ a:hover .more-link span {
   isolation: isolate;
   overflow: hidden;
 }
-.intro-wrap::before,
-.intro-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: radial-gradient(circle, var(--dot) 1.2px, transparent 1.6px);
-  background-size: 24px 24px;
-  -webkit-mask-image: linear-gradient(#000 40%, transparent);
-  mask-image: linear-gradient(#000 40%, transparent);
-  pointer-events: none;
-}
-.intro-wrap::after {
-  background-image: radial-gradient(circle, var(--accent) 1.6px, transparent 2px);
-  -webkit-mask-image: radial-gradient(180px circle at var(--mx, -999px) var(--my, -999px), #000, transparent);
-  mask-image: radial-gradient(180px circle at var(--mx, -999px) var(--my, -999px), #000, transparent);
-}
 .intro {
   padding-top: 96px;
   padding-bottom: 88px;
@@ -1130,7 +1115,7 @@ a:hover .more-link span {
 .intro__me strong {
   display: block;
   font-size: 17px;
-  font-weight: 700;
+  font-weight: 600;
 }
 .intro__me span span {
   font-size: 14px;
@@ -1494,7 +1479,7 @@ h3 {
   letter-spacing: -0.025em;
 }
 .intro__title {
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.025em;
 }
 .label,
@@ -1560,7 +1545,7 @@ h3 {
 .pj-head__badge {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--pc);
@@ -1570,7 +1555,7 @@ h3 {
 }
 .pj-head__title {
   font-size: clamp(44px, 7vw, 88px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 0.95;
   letter-spacing: -0.025em;
 }
@@ -1652,7 +1637,7 @@ h3 {
   background: color-mix(in srgb, var(--pc) 14%, transparent);
   font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--pc);
@@ -1693,7 +1678,7 @@ h3 {
 .pj-note__title {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1;
@@ -1726,7 +1711,7 @@ h3 {
   color: var(--pc);
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
 }
 :root[data-theme='dark'] .pj-feature__num {
   color: color-mix(in srgb, var(--pc) 55%, white);
@@ -1734,7 +1719,7 @@ h3 {
 .pj-feature h3 {
   margin-top: 14px;
   font-size: 19px;
-  font-weight: 700;
+  font-weight: 600;
 }
 .pj-feature p {
   margin-top: 6px;
@@ -1781,7 +1766,7 @@ h3 {
   left: 36px;
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   opacity: 0.9;
@@ -1804,7 +1789,7 @@ h3 {
   display: block;
   font-family: var(--font-display);
   font-size: clamp(28px, 3vw, 40px);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1;
 }
@@ -1848,7 +1833,7 @@ h3 {
 .marquee__track span {
   font-family: var(--font-display);
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
@@ -1912,7 +1897,7 @@ h3 {
 .ba--status strong {
   font-family: var(--font-display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -1930,7 +1915,7 @@ h3 {
   color: #3d3714;
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   transform: rotate(-4deg);
 }
 .ba--fact,
@@ -1948,7 +1933,7 @@ h3 {
 .ba--fact strong {
   font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
 }
 .ba--fact-0 {
@@ -1971,7 +1956,7 @@ h3 {
 .ba--count strong {
   font-family: var(--font-display);
   font-size: 56px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 0.9;
   letter-spacing: -0.025em;
 }
@@ -2017,14 +2002,14 @@ h3 {
   color: #3d2f00;
   font-family: var(--font-display);
   font-size: 17px;
-  font-weight: 700;
+  font-weight: 600;
   transform: rotate(8deg);
   box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.4);
 }
 .cta-panel__title {
   max-width: 680px;
   font-size: clamp(34px, 5vw, 60px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.02;
   letter-spacing: -0.025em;
 }
@@ -2112,7 +2097,7 @@ h3 {
 .label {
   margin-bottom: 10px;
   font-size: 12.5px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
@@ -2200,7 +2185,7 @@ h3 {
 .ae-card__label {
   font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink);
@@ -2380,4 +2365,303 @@ h3 {
 }
 :root[data-theme='dark'] .ba--count span {
   color: var(--muted);
+}
+
+/* ---------- Type roles ---------- */
+/* Small labels: lowercase mono. */
+.label,
+.eyebrow,
+.pj-head__badge,
+.badge,
+.card__year,
+.card__kind,
+.filters__count,
+.pj-fact dt,
+.intro__me span span,
+.pj-note__title,
+.pj-next__hand,
+.ae-card__label,
+.cred-block__label,
+.contact-card__label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+.badge {
+  font-size: 12px;
+  text-transform: none;
+}
+.pj-sec__label {
+  padding: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: var(--muted);
+}
+.pj-sec__label::before {
+  content: '— ';
+}
+/* Intro and story paragraphs: serif italic. */
+.intro__sub,
+.pj-head__tagline,
+.page-lede,
+.ba--text p:not(.label),
+.about__objective,
+.cta-panel__sub,
+.about-fun__text .muted {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.intro__sub {
+  font-size: 19px;
+}
+.pj-head__tagline {
+  font-size: clamp(20px, 2.2vw, 26px);
+}
+/* Headings: Geist, semibold, a little tight. */
+.intro__title,
+.pj-head__title,
+.page-title,
+.cta-panel__title,
+.work__title,
+.about-block__title,
+.card__title,
+.pj-big {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.pj-big {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Sidebar (desktop) ---------- */
+.side {
+  display: none;
+}
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.socials a {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--muted);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.socials a:hover {
+  color: var(--ink);
+  background: var(--bg-alt);
+}
+.socials--big {
+  margin-top: 4px;
+  margin-left: -6px;
+}
+.footer__links .socials {
+  margin-right: 8px;
+}
+
+@media (min-width: 1100px) {
+  :root {
+    --side: 248px;
+  }
+  #root {
+    padding-left: var(--side);
+  }
+  .nav {
+    display: none;
+  }
+  .side {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    width: var(--side);
+    padding: 28px 18px 22px;
+    border-right: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .side__me {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 6px;
+  }
+  .side__me img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 15%;
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .side__me strong {
+    display: block;
+    font-size: 15.5px;
+    font-weight: 600;
+  }
+  .side__me em {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-style: normal;
+    color: var(--muted);
+  }
+  .side__links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 40px;
+  }
+  .side__links a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink-soft);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .side__links a:hover {
+    background: var(--bg-alt);
+    color: var(--ink);
+  }
+  .side__links a.active {
+    background: var(--bg-alt);
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .side__links a.active::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .side__foot {
+    display: grid;
+    gap: 14px;
+    margin-top: auto;
+  }
+  .side__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .side__row .theme-toggle {
+    width: 32px;
+    height: 32px;
+  }
+  /* The theme switch's circle animation: keep the sidebar solid while it runs. */
+  html.theme-switching .side {
+    background: var(--bg);
+  }
+}
+
+/* Footer: keep links and the back-to-top button on one line, and show a focus ring
+   only for keyboard users (not after a mouse click). */
+.footer__links {
+  align-items: center;
+}
+.footer__links a,
+.footer__links button {
+  line-height: 1.5;
+  padding: 0;
+}
+.footer__links button:focus {
+  outline: none;
+}
+.footer__links button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.cert-list__meta {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.side__toggles {
+  display: flex;
+  gap: 6px;
+}
+.side__toggles .theme-toggle {
+  width: 32px;
+  height: 32px;
+}
+.nav .sound-toggle {
+  width: 34px;
+  height: 34px;
+}
+
+/* Intro background: tool logos (see IconField.jsx). */
+.icon-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000 45%, transparent 95%);
+  mask-image: linear-gradient(#000 45%, transparent 95%);
+}
+.icon-field__item {
+  --t: 0;
+  --s: 1;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  transform: scale(var(--s));
+  transition: transform 0.18s ease-out;
+}
+.icon-field__item svg {
+  display: block;
+}
+/* Grey logo: pulses in a slow diagonal wave; fades out as the colour fades in. */
+.icon-field__grey {
+  fill: var(--ink);
+  opacity: calc(0.1 * (1 - var(--t)));
+  animation: icon-pulse 4.5s ease-in-out infinite;
+  animation-delay: calc(var(--wave) * 0.16s);
+}
+.icon-field__color {
+  opacity: var(--t);
+  transition: opacity 0.18s ease-out;
+}
+@keyframes icon-pulse {
+  0%,
+  100% {
+    fill-opacity: 0.35;
+  }
+  50% {
+    fill-opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .icon-field__grey {
+    animation: none;
+  }
 }
