@@ -86,7 +86,8 @@ export default function IconField() {
         const d = Math.hypot(el._x - px, el._y - py)
         const t = Math.max(0, 1 - d / REACH)
         el.style.setProperty('--t', t.toFixed(3))
-        el.style.setProperty('--s', (1 + t * t * GROW).toFixed(3))
+        // Drawn at full size and scaled down at rest, so it stays crisp while it grows.
+        el.style.setProperty('--s', ((1 + t * t * GROW) / (1 + GROW)).toFixed(3))
       }
     }
     const onMove = (e) => {
@@ -122,7 +123,7 @@ export default function IconField() {
           }}
           style={{ left: c.x, top: c.y, '--wave': c.wave }}
         >
-          <svg viewBox="0 0 24 24" width="20" height="20">
+          <svg viewBox="0 0 24 24" width="36" height="36">
             <path className="icon-field__grey" d={c.icon.path} />
             <path className="icon-field__color" d={c.icon.path} fill={fill(c.icon.hex)} />
           </svg>

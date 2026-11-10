@@ -2629,13 +2629,14 @@ h3 {
 }
 .icon-field__item {
   --t: 0;
-  --s: 1;
+  /* 20px at rest: the logo is drawn at 36px and scaled down (see IconField.jsx). */
+  --s: 0.556;
   position: absolute;
-  width: 20px;
-  height: 20px;
-  margin: -10px 0 0 -10px;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
   transform: scale(var(--s));
-  transition: transform 0.18s ease-out;
+  transition: transform 0.25s ease-out;
 }
 .icon-field__item svg {
   display: block;
@@ -2643,7 +2644,7 @@ h3 {
 /* Grey logo: pulses in a slow diagonal wave; fades out as the colour fades in. */
 .icon-field__grey {
   fill: var(--ink);
-  opacity: calc(0.1 * (1 - var(--t)));
+  opacity: calc(0.1 * (1 - min(1, var(--t) * 3)));
   animation: icon-pulse 4.5s ease-in-out infinite;
   animation-delay: calc(var(--wave) * 0.16s);
 }
