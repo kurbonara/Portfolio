@@ -41,6 +41,7 @@ export default function GraphEditor() {
   const layerRef = useRef(null)
   const playheadRef = useRef(null)
   const dragging = useRef(null)
+  const elapsed = useRef(0) // where the loop was paused, so Play resumes from there
   const curveRef = useRef(curve)
   curveRef.current = curve
 
@@ -48,11 +49,12 @@ export default function GraphEditor() {
   useEffect(() => {
     if (!playing) return
     let raf = 0
-    const start = performance.now()
+    const start = performance.now() - elapsed.current
     const cycle = 2 * (DURATION + HOLD)
     const tick = (now) => {
       raf = requestAnimationFrame(tick)
-      const t = (now - start) % cycle
+      elapsed.current = now - start
+      const t = elapsed.current % cycle
       let x
       if (t < DURATION) x = t / DURATION
       else if (t < DURATION + HOLD) x = 1
