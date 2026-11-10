@@ -2,10 +2,11 @@ import { Link, useParams } from 'react-router-dom'
 import Reveal from '../components/Reveal.jsx'
 import Cover from '../components/Cover.jsx'
 import useTitle from '../components/useTitle.js'
-import { PageHeader, Tags, Arrow } from '../components/Sections.jsx'
 import NotFound from './NotFound.jsx'
 import { projects } from '../data.js'
 
+// One project: a tinted header, the cover, quick facts, then problem → what I made →
+// features → tools, and a big "up next" card. Tinted with the project's own colour.
 export default function Project() {
   const { id } = useParams()
   const index = projects.findIndex((p) => p.id === id)
@@ -16,86 +17,124 @@ export default function Project() {
   const prev = projects[(index - 1 + projects.length) % projects.length]
   const next = projects[(index + 1) % projects.length]
 
-  const meta = [
-    { label: 'Type', value: p.kind },
-    { label: 'Category', value: p.badge },
+  const facts = [
     { label: 'Platform', value: p.platform },
-    (p.date || p.year) && { label: p.date ? 'Completed' : 'Year', value: p.date || p.year },
-  ].filter(Boolean)
+    { label: p.date ? 'Finished' : 'Year', value: p.date || p.year || '—' },
+    { label: 'Type', value: p.kind },
+    { label: 'Tools', value: `${p.stack.length} in the stack` },
+  ]
 
   return (
-    <>
-      <PageHeader eyebrow={p.subtitle} title={p.title} back={{ to: '/projects', label: 'All projects' }}>
-        {p.summary}
-      </PageHeader>
+    <article className="pj" style={{ '--pc': p.color }}>
+      <header className="pj-head">
+        <div className="container">
+          <Link className="back-link" to="/projects">
+            <span aria-hidden="true">←</span> All projects
+          </Link>
 
-      <div className="container page-body">
-        <Reveal className="case-hero">
-          <Cover project={p} className="case-cover" />
-          {p.url && (
-            <a className="btn btn--solid case-live" href={p.url} target="_blank" rel="noreferrer">
-              Visit live site ↗
-            </a>
-          )}
-        </Reveal>
-
-        <Reveal as="dl" className="case-meta">
-          {meta.map((m) => (
-            <div key={m.label}>
-              <dt>{m.label}</dt>
-              <dd>{m.value}</dd>
+          <Reveal className="pj-head__row">
+            <img className="pj-head__icon" src={p.icon} alt="" width="64" height="64" />
+            <div>
+              <p className="pj-head__badge">
+                {p.badge}
+                {p.team && <span> · team project</span>}
+              </p>
+              <h1 className="pj-head__title">{p.title}</h1>
             </div>
-          ))}
+          </Reveal>
+
+          <Reveal as="p" className="pj-head__tagline" delay={80}>
+            {p.tagline}
+          </Reveal>
+
+          <Reveal className="pj-head__actions" delay={140}>
+            {p.url && (
+              <a className="btn pj-btn" href={p.url} target="_blank" rel="noreferrer">
+                Visit live site ↗
+              </a>
+            )}
+            <a className="btn btn--outline" href="#features">
+              See what it does ↓
+            </a>
+          </Reveal>
+        </div>
+      </header>
+
+      <div className="container">
+        <Reveal delay={120}>
+          <div className="pj-cover">
+            <Cover project={p} className="pj-cover__img" />
+          </div>
         </Reveal>
 
-        <div className="case-grid">
-          {[
-            ['Problem', p.problem],
-            ['Solution', p.solution],
-            ['Role', p.role],
-          ].map(([label, text], i) => (
-            <Reveal key={label} className="surface case-card" delay={i * 80}>
-              <h2 className="cred-block__label">{label}</h2>
-              <p>{text}</p>
+        <dl className="pj-facts">
+          {facts.map((f, i) => (
+            <Reveal key={f.label} className="pj-fact" delay={i * 60}>
+              <dt>{f.label}</dt>
+              <dd>{f.value}</dd>
             </Reveal>
           ))}
-        </div>
+        </dl>
 
-        <section className="case-section">
-          <Reveal as="h2" className="case-section__title">
-            {p.team ? 'What we built' : 'What I did'}
+        <section className="pj-sec">
+          <h2 className="pj-sec__label">The problem</h2>
+          <Reveal as="p" className="pj-big">
+            {p.problem}
           </Reveal>
-          <Reveal as="ul" className="project__points case-points">
-            {p.points.map((pt) => (
-              <li key={pt}>{pt}</li>
+        </section>
+
+        <section className="pj-sec">
+          <h2 className="pj-sec__label">{p.team ? 'What we made' : 'What I made'}</h2>
+          <div>
+            <Reveal as="p" className="pj-big">
+              {p.solution}
+            </Reveal>
+            <Reveal className="pj-note" delay={80}>
+              <p className="pj-note__title">{p.team ? 'my part' : 'who did what'}</p>
+              <p>{p.role}</p>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="pj-sec" id="features">
+          <h2 className="pj-sec__label">Features</h2>
+          <div className="pj-features">
+            {p.features.map((f, i) => (
+              <Reveal key={f.title} className="pj-feature" delay={(i % 2) * 60}>
+                <span className="pj-feature__num">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{f.title}</h3>
+                <p>{f.text}</p>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="pj-sec">
+          <h2 className="pj-sec__label">Built with</h2>
+          <Reveal as="ul" className="pj-stack">
+            {p.stack.map((t) => (
+              <li key={t}>{t}</li>
             ))}
           </Reveal>
         </section>
 
-        <section className="case-section">
-          <Reveal as="h2" className="case-section__title">
-            Built with
-          </Reveal>
-          <Reveal>
-            <Tags items={p.stack} />
-          </Reveal>
-        </section>
-
-        <nav className="case-nav" aria-label="More projects">
-          <Link to={`/projects/${prev.id}`} className="surface case-nav__link">
-            <span className="muted">
-              <span aria-hidden="true">←</span> Previous
+        <nav className="pj-next" aria-label="More projects">
+          <Link to={`/projects/${next.id}`} className="pj-next__card" style={{ '--pc': next.color }}>
+            <span className="pj-next__hand">up next →</span>
+            <span className="pj-next__text">
+              <img src={next.icon} alt="" width="44" height="44" />
+              <span>
+                <strong>{next.title}</strong>
+                <em>{next.tagline}</em>
+              </span>
             </span>
-            <strong>{prev.title}</strong>
+            <Cover project={next} className="pj-next__cover" />
           </Link>
-          <Link to={`/projects/${next.id}`} className="surface case-nav__link case-nav__link--next">
-            <span className="muted">
-              Next <Arrow />
-            </span>
-            <strong>{next.title}</strong>
+          <Link to={`/projects/${prev.id}`} className="pj-prev">
+            <span aria-hidden="true">←</span> or go back to {prev.title}
           </Link>
         </nav>
       </div>
-    </>
+    </article>
   )
 }

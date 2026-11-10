@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Reveal from '../components/Reveal.jsx'
 import useTitle from '../components/useTitle.js'
-import { profile, skills } from '../data.js'
+import { profile, projects } from '../data.js'
 import { Hero, ProjectFilters, ProjectGrid, CopyEmail, Arrow } from '../components/Sections.jsx'
 
 // A few headline tools for the home page; the full list lives on the About page.
@@ -21,7 +21,6 @@ export default function Home() {
     document.getElementById('work')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const totalSkills = skills.reduce((n, s) => n + s.items.length, 0)
 
   return (
     <>
@@ -35,8 +34,19 @@ export default function Home() {
         <ProjectGrid filter={filter} preview={filter === 'all' ? preview : null} />
       </section>
 
-      <section className="container home-about" id="about">
-        <Reveal className="home-about__text">
+      {/* A strip of tools that slides by. Doubled so the loop is seamless. */}
+      <div className="marquee" aria-label="Tools I use">
+        <div className="marquee__track">
+          {[...TOOLBOX, ...TOOLBOX].map((t, i) => (
+            <span key={i} aria-hidden={i >= TOOLBOX.length}>
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <section className="container bento-about" id="about">
+        <Reveal className="ba ba--text">
           <p className="label">About</p>
           {profile.about.map((para) => (
             <p key={para}>{para}</p>
@@ -45,28 +55,34 @@ export default function Home() {
             More about me, skills & education <Arrow />
           </Link>
         </Reveal>
-        <Reveal className="home-about__tools" delay={100}>
-          <p className="label">Usually reaching for</p>
-          <ul className="toolbox">
-            {TOOLBOX.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
-          <p className="muted home-about__note">…and {totalSkills - TOOLBOX.length}+ more on the About page.</p>
+        <Reveal className="ba ba--status" delay={80}>
+          <span className="status__dot" aria-hidden="true" />
+          <strong>{profile.status}</strong>
+          <span className="ba__hand">say hi!</span>
         </Reveal>
+        <Reveal className="ba ba--count" delay={140}>
+          <strong>{projects.length}</strong>
+          <span>projects built & counting</span>
+        </Reveal>
+        {[...profile.facts, { label: 'Based in', value: profile.city }].map((f, i) => (
+          <Reveal key={f.label} className={`ba ba--fact ba--fact-${i}`} delay={120 + i * 60}>
+            <span>{f.label}</span>
+            <strong>{f.value}</strong>
+          </Reveal>
+        ))}
       </section>
 
-      <section className="container cta" id="contact">
-        <Reveal>
-          <h2 className="cta__title">
-            Got an internship or a project? <span className="cta__accent">Let's talk.</span>
-          </h2>
+      <section className="container" id="contact">
+        <Reveal className="cta-panel">
+          <span className="cta-panel__sticker">open to internships!</span>
+          <h2 className="cta-panel__title">Got an internship or a project? Let's talk.</h2>
+          <p className="cta-panel__sub">Drop me a message. I'd love to hear about it.</p>
           <div className="cta__actions">
-            <CopyEmail />
-            <a className="btn btn--outline" href={`mailto:${profile.email}`}>
+            <CopyEmail className="btn btn--light" />
+            <a className="btn btn--ghost-light" href={`mailto:${profile.email}`}>
               Email me
             </a>
-            <Link className="btn btn--outline" to="/contact">
+            <Link className="btn btn--ghost-light" to="/contact">
               Send a message
             </Link>
           </div>

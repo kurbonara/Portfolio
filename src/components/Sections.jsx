@@ -196,6 +196,7 @@ export function ProjectCard({ project: p, wide, dim }) {
           {p.year && <span className="card__year">{p.year}</span>}
         </div>
         <h3 className="card__title">
+          <img className="card__icon" src={p.icon} alt="" width="30" height="30" />
           <Link to={`/projects/${p.id}`} className="card__link">
             {p.title}
           </Link>
@@ -210,6 +211,9 @@ export function ProjectCard({ project: p, wide, dim }) {
         )}
         <div className="card__foot">
           <span className="card__kind">{p.kind}</span>
+          <span className="card__view" aria-hidden="true">
+            View project →
+          </span>
           {p.url && (
             <a className="card__live" href={p.url} target="_blank" rel="noreferrer">
               Live ↗
