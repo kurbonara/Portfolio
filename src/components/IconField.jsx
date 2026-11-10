@@ -41,7 +41,8 @@ const ICONS = [
 const fill = (hex) => (/^(000000|FFFFFF|181717|191919|092E20)$/i.test(hex) ? 'var(--ink)' : `#${hex}`)
 
 const CELL = 64
-const CLEAR = 18 // px of empty space kept around the intro's text, avatar, and buttons
+const CLEAR = 14 // px of side padding kept around the intro's text, avatar, and buttons
+const ICON_HALF = 10 // half a resting logo's size
 const REACH = 170 // px around the pointer that reacts
 const GROW = 0.8 // extra scale at the pointer (1.8×)
 
@@ -61,15 +62,22 @@ export default function IconField() {
         range.selectNodeContents(el)
         // One rectangle per line of text, so short lines keep logos beside them.
         for (const r of range.getClientRects()) {
+          // Text boxes are taller than the letters (room for accents and descenders),
+          // so trim them a little top and bottom to hug what's actually drawn.
+          const trim = (r.bottom - r.top) * 0.15
           blocked.push({
             l: r.left - box.left - CLEAR,
             r: r.right - box.left + CLEAR,
-            t: r.top - box.top - CLEAR,
-            b: r.bottom - box.top + CLEAR,
+            t: r.top - box.top + trim,
+            b: r.bottom - box.top - trim,
           })
         }
       }
-      const isBlocked = (x, y) => blocked.some((k) => x > k.l && x < k.r && y > k.t && y < k.b)
+      // Skip a logo only if the logo itself would overlap a blocked box.
+      const isBlocked = (x, y) =>
+        blocked.some(
+          (k) => x + ICON_HALF > k.l && x - ICON_HALF < k.r && y + ICON_HALF > k.t && y - ICON_HALF < k.b
+        )
       const cols = Math.ceil(box.width / CELL) + 1
       const rows = Math.ceil(box.height / CELL) + 1
       const next = []
