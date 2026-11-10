@@ -52,6 +52,17 @@ const sounds = {
   },
 }
 
+// A soft plucked note on a pentatonic scale (any sequence sounds pleasant).
+// `step` 0, 1, 2… walks up the scale across octaves.
+const PENTATONIC = [0, 2, 4, 7, 9]
+export function pluck(step) {
+  if (muted) return
+  const s = Math.max(0, Math.round(step))
+  const semis = 12 * Math.floor(s / 5) + PENTATONIC[s % 5]
+  const freq = 392 * 2 ** (semis / 12) // from G4 upward
+  tone(freq, { length: 0.16, volume: 0.035, type: 'triangle' })
+}
+
 export function play(name) {
   if (!muted) sounds[name]?.()
 }

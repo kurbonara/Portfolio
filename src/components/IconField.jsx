@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { pluck } from '../sound.js'
 import {
   siReact,
   siNextdotjs,
@@ -113,14 +114,29 @@ export default function IconField() {
     let raf = 0
     let px = -9999
     let py = -9999
+    // Sound: a note each time the pointer lands on a new logo (spaced at least 70ms apart).
+    let lastHit = null
+    let lastNote = 0
+    const width = host.getBoundingClientRect().width || 1
     const update = () => {
       raf = 0
+      let hit = null
       for (const el of items) {
+        if (Math.abs(el._x - px) < 12 && Math.abs(el._y - py) < 12) hit = el
         const d = Math.hypot(el._x - px, el._y - py)
         const t = Math.max(0, 1 - d / REACH)
         el.style.setProperty('--t', t.toFixed(3))
         // Drawn at full size and scaled down at rest, so it stays crisp while it grows.
         el.style.setProperty('--s', ((1 + t * t * GROW) / (1 + GROW)).toFixed(3))
+      }
+      if (hit !== lastHit) {
+        lastHit = hit
+        const now = performance.now()
+        if (hit && now - lastNote > 70) {
+          lastNote = now
+          // Left to right walks up two octaves of the scale.
+          pluck((hit._x / width) * 10)
+        }
       }
     }
     const onMove = (e) => {

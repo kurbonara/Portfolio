@@ -2693,3 +2693,21 @@ h3 {
 .pj-head__badge {
   text-transform: none;
 }
+
+/* ---------- Card footer on small screens / touch ---------- */
+.card__live,
+.card__view {
+  white-space: nowrap;
+}
+/* "View project →" is a mouse-hover hint only; touch screens keep hover stuck after a tap. */
+@media (hover: none) {
+  .card__view {
+    display: none;
+  }
+}
+@media (max-width: 860px) {
+  /* Wide cards stack on phones: the cover must span the full card width. */
+  .card--wide .card__media {
+    align-self: stretch;
+  }
+}
