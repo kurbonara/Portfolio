@@ -41,6 +41,7 @@ const ICONS = [
 const fill = (hex) => (/^(000000|FFFFFF|181717|191919|092E20)$/i.test(hex) ? 'var(--ink)' : `#${hex}`)
 
 const CELL = 64
+const CLEAR = 18 // px of empty space kept around the intro's text, avatar, and buttons
 const REACH = 170 // px around the pointer that reacts
 const GROW = 0.8 // extra scale at the pointer (1.8×)
 
@@ -48,27 +49,44 @@ export default function IconField() {
   const ref = useRef(null)
   const [cells, setCells] = useState([])
 
-  // Lay out a staggered grid that covers the intro.
+  // Lay out a staggered grid that covers the intro, leaving out any spot behind the
+  // text, avatar, or buttons (so logos never show through between letters).
   useEffect(() => {
     const host = ref.current.parentElement
-    const ro = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect
-      const cols = Math.ceil(width / CELL) + 1
-      const rows = Math.ceil(height / CELL) + 1
-      const next = []
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          next.push({
-            icon: ICONS[(r * 7 + c * 3) % ICONS.length],
-            x: c * CELL + (r % 2 ? CELL / 2 : 0) + CELL / 2,
-            y: r * CELL + CELL / 2,
-            wave: c + r,
+    const layout = () => {
+      const box = host.getBoundingClientRect()
+      const blocked = []
+      const range = document.createRange()
+      for (const el of host.querySelectorAll('.intro > *')) {
+        range.selectNodeContents(el)
+        // One rectangle per line of text, so short lines keep logos beside them.
+        for (const r of range.getClientRects()) {
+          blocked.push({
+            l: r.left - box.left - CLEAR,
+            r: r.right - box.left + CLEAR,
+            t: r.top - box.top - CLEAR,
+            b: r.bottom - box.top + CLEAR,
           })
         }
       }
+      const isBlocked = (x, y) => blocked.some((k) => x > k.l && x < k.r && y > k.t && y < k.b)
+      const cols = Math.ceil(box.width / CELL) + 1
+      const rows = Math.ceil(box.height / CELL) + 1
+      const next = []
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = c * CELL + (r % 2 ? CELL / 2 : 0) + CELL / 2
+          const y = r * CELL + CELL / 2
+          if (isBlocked(x, y)) continue
+          next.push({ icon: ICONS[(r * 7 + c * 3) % ICONS.length], x, y, wave: c + r })
+        }
+      }
       setCells(next)
-    })
+    }
+    const ro = new ResizeObserver(layout)
     ro.observe(host)
+    // Fonts change line widths once they load.
+    document.fonts?.ready.then(layout)
     return () => ro.disconnect()
   }, [])
 
