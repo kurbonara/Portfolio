@@ -36,7 +36,9 @@ const icon = {
 
 const social = {
   linkedin: (
+    // Drawn slightly left of centre; nudge it so it lines up with the other icons.
     <path
+      transform="translate(1.2 0)"
       fill="currentColor"
       stroke="none"
       d="M4.5 3.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM3 9h3v12H3Zm6 0h2.9v1.6h.1c.4-.8 1.4-1.8 3-1.8 3.1 0 3.7 2.1 3.7 4.8V21h-3v-6.5c0-1.6 0-3.5-2.1-3.5S12 12.7 12 14.4V21H9Z"
