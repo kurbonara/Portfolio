@@ -7,7 +7,9 @@ import { profile, education } from '../data.js'
 
 // Everything about the person: bio, skills, education, and interests.
 export default function About() {
-  useTitle('About')
+  useTitle('About', {
+    description: 'About Kurt Tristan R. Dela Rosa, a BSIT student at Bulacan State University building with React and Unity. Skills, education and certifications.',
+  })
 
   return (
     <>

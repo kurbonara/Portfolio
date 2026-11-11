@@ -3,7 +3,7 @@ import useTitle from '../components/useTitle.js'
 import { PageHeader } from '../components/Sections.jsx'
 
 export default function NotFound() {
-  useTitle('Page not found')
+  useTitle('Page not found', { index: false })
   return (
     <>
       <PageHeader eyebrow="404" title="Lost in the fog">

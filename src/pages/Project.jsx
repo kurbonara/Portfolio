@@ -11,7 +11,10 @@ export default function Project() {
   const { id } = useParams()
   const index = projects.findIndex((p) => p.id === id)
   const p = projects[index]
-  useTitle(p ? p.title : 'Not found')
+  useTitle(p ? p.title : 'Page not found', {
+    description: p && `${p.title}: ${p.subtitle}. ${p.summary}`,
+    index: Boolean(p),
+  })
   if (!p) return <NotFound />
 
   const prev = projects[(index - 1 + projects.length) % projects.length]

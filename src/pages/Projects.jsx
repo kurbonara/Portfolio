@@ -3,7 +3,9 @@ import useTitle from '../components/useTitle.js'
 import { PageHeader, ProjectFilters, ProjectGrid } from '../components/Sections.jsx'
 
 export default function Projects() {
-  useTitle('Projects')
+  useTitle('Projects', {
+    description: 'Projects by Kurt Tristan R. Dela Rosa: web apps, Mac apps and games, from a Metro Manila commute guide to a Unity horror game.',
+  })
   const [params, setParams] = useSearchParams()
   const filter = params.get('type') || 'all'
   return (

@@ -2,7 +2,9 @@ import useTitle from '../components/useTitle.js'
 import { PageHeader, ContactBlock } from '../components/Sections.jsx'
 
 export default function Contact() {
-  useTitle('Contact')
+  useTitle('Contact', {
+    description: 'Get in touch with Kurt Tristan R. Dela Rosa, a front-end and game developer open to internships.',
+  })
   return (
     <>
       <PageHeader eyebrow="Contact" title="Let's build something together">
