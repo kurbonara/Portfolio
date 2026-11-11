@@ -27,9 +27,19 @@ function audio() {
     out.gain.value = 1
     out.connect(limiter).connect(ctx.destination)
   }
-  if (ctx.state === 'suspended') ctx.resume()
   return ctx
 }
+
+// Browsers pause audio when the tab or window loses focus (Safari calls it "interrupted").
+// Wake it back up as soon as the visitor returns, so the next sound isn't lost.
+function wake() {
+  if (ctx && ctx.state !== 'running' && ctx.state !== 'closed') ctx.resume().catch(() => {})
+}
+document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' && wake())
+window.addEventListener('focus', wake)
+window.addEventListener('pageshow', wake)
+document.addEventListener('pointerdown', wake, true)
+document.addEventListener('keydown', wake, true)
 
 // Each theme has its own sound palette. Light: crisp and bright, as written below.
 // Dark: the same sounds a perfect fourth lower, rounder (sine), a little longer, and
@@ -41,6 +51,23 @@ const isDark = () => document.documentElement.dataset.theme === 'dark'
 function tone(freq, { start = 0, length = 0.08, volume = 0.08, type = 'sine', slideTo, raw = false } = {}) {
   const ac = audio()
   if (!ac) return
+  // Still paused (e.g. just came back to the tab): resume first, then play this note,
+  // instead of scheduling it on a stopped clock where it would never be heard.
+  if (ac.state !== 'running') {
+    const retry = arguments[1]?._retry
+    ac.resume()
+      .then(() => {
+        if (ac.state === 'running') tone(freq, { ...arguments[1], _retry: true })
+        else if (!retry) {
+          // Context is stuck (can happen in Safari): start a fresh one and try once more.
+          ctx.close().catch(() => {})
+          ctx = null
+          tone(freq, { ...arguments[1], _retry: true })
+        }
+      })
+      .catch(() => {})
+    return
+  }
   const night = !raw && isDark()
   if (night) {
     freq *= 0.75

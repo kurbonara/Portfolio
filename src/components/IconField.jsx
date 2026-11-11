@@ -91,8 +91,8 @@ export default function IconField() {
           const x = x0 + c * CELL
           const y = r * CELL + CELL / 2
           if (isBlocked(x, y)) continue
-          // Fade out toward the bottom of the intro (fully visible down to 45%, gone by 95%).
-          const fade = Math.min(1, Math.max(0, (box.height * 0.95 - y) / (box.height * 0.5)))
+          // Fade out only near the bottom of the intro (fully visible down to 75%, gone at the edge).
+          const fade = Math.min(1, Math.max(0, (box.height - y) / (box.height * 0.25)))
           if (fade <= 0) continue
           next.push({ icon: ICONS[(r * 7 + c * 3) % ICONS.length], x, y, wave: c + r, fade })
         }
