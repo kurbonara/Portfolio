@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kurttristan.me/sitemap.xml
+Sitemap: https://www.kurttristan.me/sitemap.xml
