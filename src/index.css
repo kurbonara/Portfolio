@@ -2730,3 +2730,15 @@ h3 {
 .intro__sub .status__dot {
   margin-top: 0.55em;
 }
+
+/* Let project cards shrink to any screen width (grid items otherwise refuse to get
+   narrower than their content and poke out sideways on very narrow windows). */
+.bento > *,
+.card,
+.card__body {
+  min-width: 0;
+}
+.card__title,
+.card__tagline {
+  overflow-wrap: anywhere;
+}

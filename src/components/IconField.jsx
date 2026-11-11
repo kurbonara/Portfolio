@@ -44,6 +44,14 @@ const fill = (hex) => (/^(000000|FFFFFF|181717|191919|092E20)$/i.test(hex) ? 'va
 const CELL = 48
 const CLEAR = 14 // px of side padding kept around the intro's text, avatar, and buttons
 const ICON_HALF = 8 // half a resting logo's size
+// Logos closer than this (centre to centre) would touch, so a nudge never goes there.
+const MIN_GAP = 30
+// Offsets tried, nearest first, when a logo's spot overlaps the text.
+const NUDGES = [
+  [-10, 0], [10, 0], [0, -10], [0, 10],
+  [-18, 0], [18, 0], [0, -16], [0, 16],
+  [-14, -12], [14, -12], [-14, 12], [14, 12],
+]
 const REACH = 170 // px around the pointer that reacts
 const GROW = 0.75 // extra scale at the pointer (1.75×: 16px → 28px)
 
@@ -88,9 +96,17 @@ export default function IconField() {
       const next = []
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const x = x0 + c * CELL
-          const y = r * CELL + CELL / 2
-          if (isBlocked(x, y)) continue
+          let x = x0 + c * CELL
+          let y = r * CELL + CELL / 2
+          if (isBlocked(x, y)) {
+            // Too close to the text: nudge it into the nearest free spot instead of
+            // leaving a hole (small enough nudges that it never crowds a neighbour).
+            const spot = NUDGES.map(([dx, dy]) => [x + dx, y + dy]).find(
+              ([nx, ny]) => !isBlocked(nx, ny) && !next.some((o) => Math.hypot(o.x - nx, o.y - ny) < MIN_GAP)
+            )
+            if (!spot) continue
+            ;[x, y] = spot
+          }
           // Fade out only near the bottom of the intro (fully visible down to 75%, gone at the edge).
           const fade = Math.min(1, Math.max(0, (box.height - y) / (box.height * 0.25)))
           if (fade <= 0) continue
@@ -101,9 +117,23 @@ export default function IconField() {
     }
     const ro = new ResizeObserver(layout)
     ro.observe(host)
+    // The intro text fades in from 18px lower, so measure again once it has settled;
+    // otherwise the clear areas sit below the real text.
+    let settle = 0
+    const onSettled = () => {
+      clearTimeout(settle)
+      settle = setTimeout(layout, 50)
+    }
+    host.addEventListener('transitionend', onSettled)
+    const late = setTimeout(layout, 1200)
     // Fonts change line widths once they load.
     document.fonts?.ready.then(layout)
-    return () => ro.disconnect()
+    return () => {
+      ro.disconnect()
+      host.removeEventListener('transitionend', onSettled)
+      clearTimeout(settle)
+      clearTimeout(late)
+    }
   }, [])
 
   // Grow and colour the logos near the pointer.
