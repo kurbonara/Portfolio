@@ -2652,14 +2652,24 @@ h3 {
   display: block;
 }
 /* Grey logo: pulses in a slow diagonal wave; fades out as the colour fades in. */
+.icon-field {
+  /* Dark logos on a light page barely change at low opacity, so light mode pulses
+     stronger: a higher peak and a deeper dip. */
+  --logo-peak: 0.24;
+  --logo-low: 0.2;
+}
+:root[data-theme='dark'] .icon-field {
+  --logo-peak: 0.13;
+  --logo-low: 0.35;
+}
 .icon-field__grey {
   fill: var(--ink);
-  opacity: calc(0.13 * (1 - min(1, var(--t) * 3)));
+  opacity: calc(var(--logo-peak) * (1 - min(1, var(--t) * 3)));
   /* Negative delays start each logo partway through its pulse, so the wave is already
      flowing on the first frame instead of sweeping in from the corner. */
   animation: icon-pulse 4.5s ease-in-out infinite;
   animation-delay: calc(var(--wave) * -0.16s);
-  fill-opacity: 0.35;
+  fill-opacity: var(--logo-low);
 }
 .icon-field__color {
   opacity: var(--t);
@@ -2668,7 +2678,7 @@ h3 {
 @keyframes icon-pulse {
   0%,
   100% {
-    fill-opacity: 0.35;
+    fill-opacity: var(--logo-low);
   }
   50% {
     fill-opacity: 1;
