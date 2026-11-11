@@ -132,7 +132,13 @@ export function pluck(step) {
   tone(freq, { length: 0.18, volume: 0.12, type: 'triangle' })
 }
 
+// After a theme switch the circle animation briefly covers the page, and when it ends
+// the browser reports the pointer "entering" the button again; skip that fake hover.
+let quietUntil = 0
+
 export function play(name) {
+  if (name === 'dark' || name === 'light') quietUntil = performance.now() + 1500
+  if (name === 'hover' && performance.now() < quietUntil) return
   if (!muted) sounds[name]?.()
 }
 
