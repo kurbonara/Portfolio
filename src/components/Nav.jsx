@@ -106,35 +106,29 @@ export default function Nav() {
   return (
     <>
       <aside className="side" aria-label="Site">
-        <Link to="/" className="side__me">
-          <img src={profile.photo} alt="" width="44" height="44" />
-          <span>
-            <strong>Kurt Tristan</strong>
-            <em>{profile.role.toLowerCase()}</em>
-          </span>
+        <Link to="/" className="side__me" aria-label="Home">
+          <img src={profile.photo} alt="" width="40" height="40" />
+          <span className="side__tip">Kurt Tristan</span>
         </Link>
 
         <nav className="side__links" aria-label="Primary">
           {links.map((l) => (
-            <NavLink key={l.to} to={l.to} end={l.end}>
+            <NavLink key={l.to} to={l.to} end={l.end} aria-label={l.label}>
               <Icon>{icon[l.icon]}</Icon>
-              {l.label}
+              <span className="side__tip">{l.label}</span>
             </NavLink>
           ))}
-          <a href={profile.resume} target="_blank" rel="noreferrer">
+          <a href={profile.resume} target="_blank" rel="noreferrer" aria-label="Résumé (PDF)">
             <Icon>{icon.resume}</Icon>
-            résumé ↗
+            <span className="side__tip">résumé ↗</span>
           </a>
         </nav>
 
         <div className="side__foot">
-          <div className="side__row">
-            <Socials />
-            <span className="side__toggles">
-              <SoundToggle />
-              <ThemeToggle />
-            </span>
-          </div>
+          <Socials className="socials--rail" />
+          <span className="side__divider" aria-hidden="true" />
+          <SoundToggle />
+          <ThemeToggle />
         </div>
       </aside>
 

@@ -2480,7 +2480,7 @@ h3 {
 
 @media (min-width: 1100px) {
   :root {
-    --side: 248px;
+    --side: 72px;
   }
   #root {
     padding-left: var(--side);
@@ -2741,4 +2741,82 @@ h3 {
 .card__title,
 .card__tagline {
   overflow-wrap: anywhere;
+}
+
+/* ---------- Icon rail (desktop): replaces the labelled sidebar ---------- */
+@media (min-width: 1100px) {
+  .side {
+    align-items: center;
+    padding: 18px 0;
+  }
+  .side__me {
+    position: relative;
+    padding: 0;
+  }
+  .side__me img {
+    width: 40px;
+    height: 40px;
+  }
+  .side__links {
+    align-items: center;
+    gap: 6px;
+    margin-top: 28px;
+  }
+  .side__links a {
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 14px;
+  }
+  .side__links a.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .side__links a.active::after {
+    display: none;
+  }
+  .side__foot {
+    justify-items: center;
+    gap: 6px;
+  }
+  .socials--rail {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .side__divider {
+    width: 24px;
+    height: 1px;
+    margin: 6px 0;
+    background: var(--line);
+  }
+  .side__foot .theme-toggle {
+    width: 34px;
+    height: 34px;
+  }
+  /* Labels appear as small tooltips beside the rail on hover / keyboard focus. */
+  .side__tip {
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-4px, -50%);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .side__links a:hover .side__tip,
+  .side__links a:focus-visible .side__tip,
+  .side__me:hover .side__tip,
+  .side__me:focus-visible .side__tip {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
 }
