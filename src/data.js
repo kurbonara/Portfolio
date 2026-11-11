@@ -331,17 +331,28 @@ export const skills = [
 ]
 
 // Newest first. Matches LinkedIn's "Licenses & certifications".
+// Add `verify: 'https://…'` to a certificate to show a "Verify ↗" link for it.
 export const certifications = [
-  { name: 'Google Certified Educator Level 2', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029' },
-  { name: 'Google Certified Educator Level 1', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029' },
-  { name: 'Gemini Certified Educator', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029' },
-  { name: 'Information Technology Specialist in Python', issuer: 'Pearson', date: 'Oct 2026', expires: 'Oct 2031' },
-  { name: 'Gemini Certified University Student', issuer: 'Google', date: 'Sep 2026' },
-  { name: 'Supported Virtual Internship Program', issuer: 'Salesforce', date: 'Jan 2026', expires: 'Jan 2031' },
-  { name: 'Agentblazer Champion Workshop', issuer: 'Salesforce', date: 'Sep 2025' },
-  { name: 'Network Addressing and Basic Troubleshooting', issuer: 'Cisco', date: 'Mar 2025', expires: 'Mar 2030' },
-  { name: 'Introduction to HTML', issuer: 'DICT', date: 'Apr 2023' },
-  { name: 'Blockchain 101', issuer: 'DICT', date: 'Apr 2023' },
+  { name: 'Google Certified Educator Level 2', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029',
+    verify: 'https://edu.google.accredible.com/35558588-7319-4de8-bc79-3d203781c821#acc.1BbvKVPz' },
+  { name: 'Google Certified Educator Level 1', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029',
+    verify: 'https://edu.google.accredible.com/cd596c0b-66fe-42a6-b355-0828bbdbb3a7#acc.ZB1tFNH0' },
+  { name: 'Gemini Certified Educator', issuer: 'Google', date: 'Oct 2026', expires: 'Oct 2029',
+    verify: 'https://edu.google.accredible.com/f7097c11-3053-42bf-9fe2-43e579807e3d#acc.nGhXOWgD' },
+  { name: 'Information Technology Specialist in Python', issuer: 'Pearson', date: 'Oct 2026', expires: 'Oct 2031',
+    verify: 'https://www.credly.com/badges/f50d87ab-bb7e-4eaa-97b4-052db2c3b551/public_url' },
+  { name: 'Gemini Certified University Student', issuer: 'Google', date: 'Sep 2026',
+    verify: 'https://edu.exceedlms.com/student/award/6VdM4yfmYNtCFoFQgE9rJWX3' },
+  { name: 'Supported Virtual Internship Program', issuer: 'Salesforce', date: 'Jan 2026', expires: 'Jan 2031',
+    verify: 'https://drive.google.com/file/d/1-KiqjU-3OAoBh8NSyNMUfaife4xRbS8e/view' },
+  { name: 'Agentblazer Champion Workshop', issuer: 'Salesforce', date: 'Sep 2025',
+    verify: 'https://drive.google.com/file/d/1wTDLpD5s4MvHbfXEzClFizGdoWzB-7Sv/view?usp=share_link' },
+  { name: 'Network Addressing and Basic Troubleshooting', issuer: 'Cisco', date: 'Mar 2025', expires: 'Mar 2030',
+    verify: 'https://www.credly.com/badges/788a8761-917b-4099-be0e-35f73b32ddc5/public_url' },
+  { name: 'Introduction to HTML', issuer: 'DICT', date: 'Apr 2023',
+    verify: 'https://drive.google.com/file/d/1DTaOCvguSyoo0xUrr94_WNKSD72u8kye/view?usp=sharing' },
+  { name: 'Blockchain 101', issuer: 'DICT', date: 'Apr 2023',
+    verify: 'https://drive.google.com/file/d/1pwJJl6qrxhuBSQIHKObR7yXUMKtDzg6n/view?usp=sharing' },
 ]
 
 export const education = {

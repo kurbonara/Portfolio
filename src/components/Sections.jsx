@@ -300,7 +300,20 @@ export function CertList() {
                 </span>
               )}
             </span>
-            <span className="cert-list__date">{c.date}</span>
+            <span className="cert-list__side">
+              <span className="cert-list__date">{c.date}</span>
+              {c.verify && (
+                <a
+                  className="cert-list__verify"
+                  href={c.verify}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Verify ${c.name} (opens in a new tab)`}
+                >
+                  Verify ↗
+                </a>
+              )}
+            </span>
           </li>
         ))}
       </ul>
