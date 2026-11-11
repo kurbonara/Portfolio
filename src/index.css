@@ -2674,15 +2674,13 @@ h3 {
     fill-opacity: 1;
   }
 }
-/* Fade the whole field in on load so nothing pops. */
+/* The field stays hidden until its layout is final, then fades in (see IconField.jsx). */
 .icon-field {
-  /* 'backwards' only, so the layer is released once the fade-in ends. */
-  animation: field-in 0.8s ease backwards;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
-@keyframes field-in {
-  from {
-    opacity: 0;
-  }
+.icon-field.is-ready {
+  opacity: 1;
 }
 @media (prefers-reduced-motion: reduce) {
   .icon-field__grey {

@@ -58,6 +58,9 @@ const GROW = 0.75 // extra scale at the pointer (1.75×: 16px → 28px)
 export default function IconField() {
   const ref = useRef(null)
   const [cells, setCells] = useState([])
+  // Hidden until the layout is final (fonts loaded, text in place), then faded in,
+  // so logos never appear in a temporary spot and jump.
+  const [ready, setReady] = useState(false)
 
   // Lay out a staggered grid that covers the intro, leaving out any spot behind the
   // text, avatar, or buttons (so logos never show through between letters).
@@ -68,6 +71,11 @@ export default function IconField() {
       const blocked = []
       const range = document.createRange()
       for (const el of host.querySelectorAll('.intro > *')) {
+        // Measure where the text will end up, not where its fade-in animation has it now
+        // (it starts slightly lower and slides up).
+        const m = new DOMMatrixReadOnly(getComputedStyle(el).transform)
+        const shiftX = m.m41
+        const shiftY = m.m42
         range.selectNodeContents(el)
         // One rectangle per line of text, so short lines keep logos beside them.
         for (const r of range.getClientRects()) {
@@ -75,10 +83,10 @@ export default function IconField() {
           // so trim them a little top and bottom to hug what's actually drawn.
           const trim = (r.bottom - r.top) * 0.15
           blocked.push({
-            l: r.left - box.left - CLEAR,
-            r: r.right - box.left + CLEAR,
-            t: r.top - box.top + trim,
-            b: r.bottom - box.top - trim,
+            l: r.left - shiftX - box.left - CLEAR,
+            r: r.right - shiftX - box.left + CLEAR,
+            t: r.top - shiftY - box.top + trim,
+            b: r.bottom - shiftY - box.top - trim,
           })
         }
       }
@@ -126,8 +134,12 @@ export default function IconField() {
     }
     host.addEventListener('transitionend', onSettled)
     const late = setTimeout(layout, 1200)
-    // Fonts change line widths once they load.
-    document.fonts?.ready.then(layout)
+    // Fonts change line widths once they load: lay out with the real fonts, then show.
+    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve()
+    fontsReady.then(() => {
+      layout()
+      requestAnimationFrame(() => setReady(true))
+    })
     return () => {
       ro.disconnect()
       host.removeEventListener('transitionend', onSettled)
@@ -189,7 +201,7 @@ export default function IconField() {
   }, [cells])
 
   return (
-    <div className="icon-field" ref={ref} aria-hidden="true">
+    <div className={`icon-field ${ready ? 'is-ready' : ''}`} ref={ref} aria-hidden="true">
       {cells.map((c, i) => (
         <span
           key={i}
