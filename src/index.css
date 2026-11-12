@@ -1061,8 +1061,10 @@ a:hover .more-link span {
   font-size: 15px;
   font-weight: 600;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .nav__home img {
+  flex-shrink: 0;
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -1465,9 +1467,15 @@ a:hover .more-link span {
     display: none;
   }
 }
-@media (max-width: 420px) {
+/* Below this the name would run into the links, so show just the photo. */
+@media (max-width: 500px) {
   .nav__home span {
     display: none;
+  }
+}
+@media (max-width: 380px) {
+  .nav__links {
+    gap: 12px;
   }
 }
 
