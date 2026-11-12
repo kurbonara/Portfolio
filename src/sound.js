@@ -85,20 +85,33 @@ function tone(freq, { start = 0, length = 0.08, volume = 0.08, type = 'sine', sl
   gain.gain.setValueAtTime(0.0001, t)
   gain.gain.exponentialRampToValueAtTime(volume, t + (night ? 0.012 : 0.005))
   gain.gain.exponentialRampToValueAtTime(0.0001, t + length)
+  // A separate gain stage so the note can be cut short cleanly (see `choke`).
+  const cut = ac.createGain()
   if (night) {
     const lp = ac.createBiquadFilter()
     lp.type = 'lowpass'
     lp.frequency.value = 1600
-    osc.connect(lp).connect(gain).connect(out)
+    osc.connect(lp).connect(gain).connect(cut).connect(out)
   } else {
-    osc.connect(gain).connect(out)
+    osc.connect(gain).connect(cut).connect(out)
   }
   osc.start(t)
   osc.stop(t + length + 0.02)
+  return { ac, cut }
+}
+
+// Fade a playing note out in a few milliseconds (fast enough to not click).
+function choke(note) {
+  if (!note) return
+  const now = note.ac.currentTime
+  note.cut.gain.setTargetAtTime(0, now, 0.004)
 }
 
 const sounds = {
+  // Two hover ticks a fourth apart; play() alternates them so moving back and
+  // forth between items sounds like tick–tock instead of the same note repeating.
   hover: () => tone(1800, { length: 0.035, volume: 0.1, type: 'triangle' }),
+  hover2: () => tone(1350, { length: 0.04, volume: 0.09, type: 'triangle' }),
   click: () => tone(560, { length: 0.1, volume: 0.28, type: 'triangle', slideTo: 280 }),
   on: () => {
     tone(660, { length: 0.14, volume: 0.25, type: 'triangle' })
@@ -136,9 +149,25 @@ export function pluck(step) {
 // the browser reports the pointer "entering" the button again; skip that fake hover.
 let quietUntil = 0
 
+// Hover state: which variation plays next, the note still ringing, and when it started.
+let hoverFlip = false
+let hoverNote = null
+let lastHover = 0
+
 export function play(name) {
-  if (name === 'dark' || name === 'light') quietUntil = performance.now() + 1500
-  if (name === 'hover' && performance.now() < quietUntil) return
+  const now = performance.now()
+  if (name === 'dark' || name === 'light') quietUntil = now + 1500
+  if (name === 'hover') {
+    if (muted || now < quietUntil) return
+    // Sweeping fast across several items: skip ticks that would land almost on top of each other.
+    if (now - lastHover < 40) return
+    lastHover = now
+    // Cut the previous tick so two never ring at once, then play the other variation.
+    choke(hoverNote)
+    hoverNote = sounds[hoverFlip ? 'hover2' : 'hover']()
+    hoverFlip = !hoverFlip
+    return
+  }
   if (!muted) sounds[name]?.()
 }
 
