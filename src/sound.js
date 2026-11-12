@@ -159,8 +159,9 @@ export function play(name) {
   if (name === 'dark' || name === 'light') quietUntil = now + 1500
   if (name === 'hover') {
     if (muted || now < quietUntil) return
-    // Sweeping fast across several items: skip ticks that would land almost on top of each other.
-    if (now - lastHover < 40) return
+    // At most one tick every 150ms: sweeping across a row of items plays a calm
+    // tick… tick… instead of one per item. A hover inside that window stays silent.
+    if (now - lastHover < 150) return
     lastHover = now
     // Cut the previous tick so two never ring at once, then play the other variation.
     choke(hoverNote)
