@@ -2,19 +2,27 @@ import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { play } from '../sound.js'
 
+// The visitor's override, plus the system theme at the moment they chose it. index.html
+// drops the override on load if the system theme has changed since.
 const STORAGE_KEY = 'theme'
+const SYSTEM_KEY = 'theme-system'
 
-function readSaved() {
-  try {
-    return localStorage.getItem(STORAGE_KEY)
-  } catch {
-    return null
-  }
+function systemTheme() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
+// Only remember a choice that differs from the system. Picking the system's own theme
+// clears the override, so the site goes back to following the system.
 function save(theme) {
   try {
-    localStorage.setItem(STORAGE_KEY, theme)
+    const system = systemTheme()
+    if (theme === system) {
+      localStorage.removeItem(STORAGE_KEY)
+      localStorage.removeItem(SYSTEM_KEY)
+    } else {
+      localStorage.setItem(STORAGE_KEY, theme)
+      localStorage.setItem(SYSTEM_KEY, system)
+    }
   } catch {
     // Private mode or blocked storage: the theme still applies for this visit.
   }
@@ -44,12 +52,13 @@ function MoonIcon() {
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || 'light')
 
-  // Follow the system setting until the visitor picks a theme themselves.
+  // Follow the system setting. A system change is the newest choice, so it replaces
+  // any theme the visitor picked earlier with the toggle.
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
     const onChange = (e) => {
-      if (readSaved()) return
       const next = e.matches ? 'dark' : 'light'
+      save(next)
       applyTheme(next)
       setTheme(next)
     }

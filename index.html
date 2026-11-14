@@ -21,14 +21,20 @@
     <meta name="twitter:image" content="https://www.kurttristan.me/og-image.png?v=1" />
     <script>
       // Set the theme before the page paints so it never flashes the wrong colours.
+      // Follow the system, unless the visitor overrode it with the toggle and the
+      // system theme hasn't changed since (a newer system change wins).
       (function () {
-        var theme
+        var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        var theme = system
         try {
-          theme = localStorage.getItem('theme')
+          var saved = localStorage.getItem('theme')
+          if ((saved === 'light' || saved === 'dark') && localStorage.getItem('theme-system') === system) {
+            theme = saved
+          } else {
+            localStorage.removeItem('theme')
+            localStorage.removeItem('theme-system')
+          }
         } catch (e) {}
-        if (theme !== 'light' && theme !== 'dark') {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-        }
         document.documentElement.dataset.theme = theme
       })()
     </script>
